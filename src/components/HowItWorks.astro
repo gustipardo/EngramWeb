@@ -1,0 +1,35 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+---
+
+<section id="how-it-works" class="border-b border-paper-300 bg-paper-200/50 py-24 sm:py-32 dark:border-navy-800 dark:bg-navy-850/30">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mb-16 max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/80">{i.howItWorks.eyebrow}</p>
+      <h2 class="mt-4 font-display text-display-lg font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_72]">
+        {i.howItWorks.sectionTitle}
+      </h2>
+      <p class="mt-5 text-lg leading-relaxed text-navy-500 dark:text-paper-100/60">{i.howItWorks.sectionSubtitle}</p>
+    </div>
+
+    <ol class="grid gap-0 md:grid-cols-2 lg:grid-cols-4">
+      {
+        i.howItWorks.steps.map((step) => (
+          <li class="relative border-t border-paper-300 py-8 md:border-l md:border-t-0 md:pl-8 md:first:md:border-l-0 dark:border-navy-800">
+            <div class="font-mono text-[11px] uppercase tracking-widest text-amber-700 dark:text-amber-500/80">{step.step}</div>
+            <h3 class="mt-3 font-display text-2xl font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_48]">{step.title}</h3>
+            <p class="mt-3 max-w-xs text-sm leading-relaxed text-navy-500 dark:text-paper-100/60">{step.description}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>

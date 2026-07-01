@@ -1,0 +1,36 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+---
+
+<section id="download" class="relative overflow-hidden border-b border-paper-300 py-28 sm:py-36 dark:border-navy-800">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 bg-[radial-gradient(40%_60%_at_50%_50%,rgba(184,120,38,0.09),transparent_70%)] dark:bg-[radial-gradient(40%_60%_at_50%_50%,rgba(228,161,63,0.10),transparent_70%)]"></div>
+
+  <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+    <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/80">{i.cta.eyebrow}</p>
+    <h2
+      class="mt-5 font-display text-4xl font-medium leading-tight text-navy-900 sm:text-5xl md:text-6xl dark:text-paper-100 [font-variation-settings:'opsz'_96]"
+      set:html={i.cta.title.replace(/\n/g, '<br/>')}
+    />
+    <p class="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-navy-500 dark:text-paper-100/70">{i.cta.subtitle}</p>
+
+    <a
+      href="#"
+      class="mt-10 inline-flex items-center gap-2 rounded-md bg-amber-600 px-8 py-4 text-base font-semibold text-paper-100 transition-colors hover:bg-amber-700 dark:bg-amber-500 dark:text-navy-900 dark:hover:bg-amber-300"
+    >
+      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 3v12" /><path d="m6 9 6 6 6-6" /><path d="M5 21h14" />
+      </svg>
+      {i.cta.button}
+    </a>
+
+    <p class="mt-6 font-mono text-xs uppercase tracking-widest text-navy-400 dark:text-paper-100/40">{i.cta.hint}</p>
+  </div>
+</section>

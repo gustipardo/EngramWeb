@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import Manifesto from '../components/Manifesto.astro';
+import TrustStrip from '../components/TrustStrip.astro';
+import CTA from '../components/CTA.astro';
+import Features from '../components/Features.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Pricing from '../components/Pricing.astro';
+import FAQ from '../components/FAQ.astro';
+import Footer from '../components/Footer.astro';
+
+const locale = 'es' as const;
+---
+
+<Layout locale={locale}>
+  <Header locale={locale} />
+  <main>
+    <Hero locale={locale} />
+    <Manifesto locale={locale} />
+    <TrustStrip locale={locale} />
+    <CTA locale={locale} />
+    <Features locale={locale} />
+    <HowItWorks locale={locale} />
+    <Pricing locale={locale} />
+    <FAQ locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</Layout>

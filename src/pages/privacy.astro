@@ -1,0 +1,196 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  locale="es"
+  title="Política de Privacidad"
+  description="Cómo Engram (Flashcards Conversacionales) recopila, usa y comparte tu información."
+  effective="30 de junio de 2026"
+  selfPath="/privacy"
+  altPath="/en/privacy"
+>
+  <p class="lead">
+    Engram es una app de estudio por voz que convierte tus mazos de AnkiDroid en
+    práctica hablada con un tutor de IA. Esta política explica qué información
+    maneja la app, para qué, y con quién se comparte. Procuramos recopilar lo
+    mínimo que la app necesita para funcionar.
+  </p>
+
+  <div class="summary">
+    <p><strong>En resumen.</strong> Usamos el inicio de sesión de Google para crear tu cuenta y guardamos el estado de tu prueba y suscripción. Durante una sesión de estudio, el audio de tu micrófono y el texto de las tarjetas que se repasan se envían a Google Gemini para que el tutor te escuche y te tome la lección. Nunca guardamos tu audio. Los pagos los gestiona por completo Google Play. No vendemos tus datos.</p>
+  </div>
+
+  <h2>1. Quiénes somos</h2>
+  <p>
+    Engram (también presentado como "Flashcards Conversacionales" /
+    "Conversational Flashcards") es una aplicación para Android desarrollada por
+    Tobías Pardo (UTN Facultad Regional Delta, Argentina). En esta política,
+    "Engram", "nosotros" y "nuestro" se refieren a este desarrollador. Podés
+    escribirnos a
+    <a href="mailto:support@engramcards.com">support@engramcards.com</a>.
+  </p>
+
+  <h2>2. Información que recopilamos</h2>
+
+  <h3>Datos de la cuenta</h3>
+  <p>
+    Para usar el tutor de IA iniciás sesión con Google. A través de Firebase
+    Authentication recibimos tu nombre, dirección de correo, la URL de tu foto de
+    perfil y un identificador de cuenta de Google. Lo usamos para crear y proteger
+    tu cuenta y para reconocerte entre dispositivos.
+  </p>
+
+  <h3>Voz y audio</h3>
+  <p>
+    Una sesión de estudio es una conversación en vivo. Mientras una sesión está
+    activa, la app captura el audio de tu micrófono y lo transmite en tiempo real
+    al servicio <strong>Google Gemini</strong>, que transcribe lo que decís,
+    evalúa tu respuesta y genera las respuestas habladas del tutor. La captura del
+    micrófono ocurre <strong>solo durante una sesión activa</strong> y se detiene
+    cuando la sesión termina. <strong>No grabamos ni almacenamos tu audio en
+    nuestros servidores</strong>, y no hay ningún servidor de Engram en el camino
+    del audio. El audio lo procesa Google bajo sus propios términos (ver
+    "Servicios de terceros").
+  </p>
+
+  <h3>Contenido de las tarjetas de AnkiDroid</h3>
+  <p>
+    Con tu permiso explícito en el dispositivo, Engram lee tus mazos de AnkiDroid
+    a través de la API oficial (ContentProvider) de AnkiDroid. Esto incluye el
+    texto del frente y el dorso de las tarjetas pendientes y su información de
+    programación. La app lee esto localmente en tu dispositivo para llevar
+    adelante la sesión, y el texto de las tarjetas que se repasan se envía a Google
+    Gemini durante la sesión para que el tutor pueda preguntarlas y calificarlas.
+    Cuando respondés, la app escribe el resultado del repaso (la calificación) de
+    vuelta en tu colección local de AnkiDroid. No copiamos tu biblioteca de mazos
+    a nuestros servidores ni sincronizamos con AnkiWeb (eso sigue siendo una
+    acción aparte que iniciás vos dentro de AnkiDroid).
+  </p>
+
+  <h3>Datos de prueba y suscripción</h3>
+  <p>
+    Guardamos un registro pequeño asociado a tu cuenta que lleva la fecha de
+    inicio de tu prueba gratuita, cuántas sesiones de estudio usaste y el estado y
+    plan de tu suscripción. Se almacena en Google Cloud Firestore y es lo que
+    controla el acceso cuando termina la prueba. Cuando te suscribís, Google Play
+    nos envía un comprobante de compra para que podamos verificar y habilitar tu
+    suscripción.
+  </p>
+
+  <h3>Analítica de uso</h3>
+  <p>
+    Para entender cómo se usa la app y corregir problemas, recopilamos analítica
+    de producto a través de PostHog. Son eventos de uso como abrir la app, iniciar
+    y completar una sesión, elegir un mazo (lo que incluye el nombre del mazo),
+    cambiar una preferencia y eventos de suscripción. Los eventos se asocian a tu
+    identificador de cuenta. La analítica está desactivada en las compilaciones de
+    desarrollo.
+  </p>
+
+  <h3>Datos técnicos y del dispositivo</h3>
+  <p>
+    Nuestros proveedores (Google Firebase y Google Play) reciben automáticamente
+    datos técnicos estándar necesarios para entregar y proteger la app, como la
+    versión de la app, información del dispositivo y del sistema operativo, y datos
+    básicos de diagnóstico o de fallos.
+  </p>
+
+  <h2>3. Cómo usamos tu información</h2>
+  <ul>
+    <li>Para brindar la función principal: un tutor de voz en tiempo real sobre tus mazos de AnkiDroid.</li>
+    <li>Para crear tu cuenta, iniciar tu sesión y mantener tu acceso sincronizado entre dispositivos.</li>
+    <li>Para gestionar la prueba gratuita y para verificar y administrar suscripciones.</li>
+    <li>Para entender el uso, diagnosticar problemas y mejorar la app.</li>
+    <li>Para responder tus consultas de soporte.</li>
+    <li>Para cumplir obligaciones legales y hacer valer nuestros Términos de Uso.</li>
+  </ul>
+
+  <h2>4. Servicios de terceros</h2>
+  <p>
+    Nos apoyamos en unos pocos proveedores de confianza para operar Engram. Cada
+    uno procesa datos solo en la medida necesaria para prestar su parte del
+    servicio:
+  </p>
+  <ul>
+    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions):</strong> inicio de sesión, registros de prueba y suscripción, y lógica del backend.</li>
+    <li><strong>Google Gemini:</strong> procesamiento en tiempo real del audio de tu sesión y del texto de las tarjetas en repaso para impulsar el tutor de IA.</li>
+    <li><strong>Google Play Billing:</strong> procesa todos los pagos de suscripción. Engram nunca recibe ni almacena los datos de tu tarjeta.</li>
+    <li><strong>PostHog:</strong> analítica de uso del producto.</li>
+  </ul>
+  <p>
+    Estos proveedores actúan como encargados de tratamiento o como responsables
+    independientes bajo sus propias políticas. No vendemos tu información personal
+    ni la compartimos para publicidad comportamental entre contextos.
+  </p>
+
+  <h2>5. Conservación de los datos</h2>
+  <p>
+    No conservamos el audio de las sesiones; se procesa de forma transitoria y se
+    descarta. El registro de tu cuenta y los datos de suscripción se mantienen
+    mientras exista tu cuenta para que el servicio funcione. Los eventos de
+    analítica se conservan por un período limitado para el análisis de tendencias.
+    Cuando nos pedís eliminar tu cuenta, borramos el registro de cuenta que
+    tenemos (ver "Tus derechos").
+  </p>
+
+  <h2>6. Seguridad</h2>
+  <p>
+    El audio y los datos en tránsito viajan cifrados mediante las conexiones
+    seguras de nuestra infraestructura. El acceso a los datos del backend está
+    restringido por reglas de seguridad que te permiten leer solo tu propio
+    registro de cuenta y bloquean las escrituras directas desde el cliente. Ningún
+    sistema es perfectamente seguro, pero tomamos medidas razonables para proteger
+    tu información.
+  </p>
+
+  <h2>7. Transferencias internacionales</h2>
+  <p>
+    Nuestros proveedores (Google y PostHog) operan a nivel global, por lo que tu
+    información puede procesarse en servidores ubicados fuera de tu país de
+    residencia, incluidos Estados Unidos y la Unión Europea. Cuando corresponde,
+    estas transferencias se apoyan en las garantías que ofrecen esos proveedores.
+  </p>
+
+  <h2>8. Tus derechos y opciones</h2>
+  <p>
+    Según dónde vivas (por ejemplo, bajo la Ley 25.326 de Argentina o el RGPD de
+    la UE), podés tener derecho a acceder, corregir, exportar o eliminar tus datos
+    personales, y a oponerte o restringir ciertos tratamientos. Para ejercer
+    cualquiera de ellos, o para pedir la eliminación de tu cuenta y los datos
+    asociados, escribí a
+    <a href="mailto:support@engramcards.com">support@engramcards.com</a>.
+    También podés frenar la recopilación de datos en cualquier momento cerrando
+    sesión, revocando el permiso de AnkiDroid o de micrófono en los ajustes de
+    Android, o desinstalando la app. Tu suscripción la administrás o cancelás
+    directamente en Google Play.
+  </p>
+
+  <h2>9. Permisos que solicitamos</h2>
+  <ul>
+    <li><strong>Micrófono:</strong> para escuchar tus respuestas habladas durante una sesión de estudio. Se usa solo mientras la sesión está activa.</li>
+    <li><strong>Acceso a AnkiDroid:</strong> un permiso otorgado a AnkiDroid que le permite a Engram leer tus mazos y escribir las calificaciones. Lo concedés en tiempo de ejecución y podés revocarlo.</li>
+    <li><strong>Notificaciones:</strong> para mostrar la notificación de sesión tipo llamada mientras una sesión corre en segundo plano.</li>
+  </ul>
+
+  <h2>10. Privacidad de menores</h2>
+  <p>
+    Engram no está dirigida a menores de 13 años y no recopilamos a sabiendas
+    información personal de ellos. Si creés que un menor nos proporcionó datos,
+    contactanos y los eliminaremos.
+  </p>
+
+  <h2>11. Cambios en esta política</h2>
+  <p>
+    Podemos actualizar esta política a medida que la app evoluciona. Cuando
+    hagamos cambios importantes, modificaremos la fecha de vigencia de arriba y,
+    cuando corresponda, te avisaremos en la app o por correo. El uso continuado
+    tras una actualización implica que aceptás la política revisada.
+  </p>
+
+  <h2>12. Contacto</h2>
+  <p>
+    ¿Dudas sobre esta política o tus datos? Escribí a
+    <a href="mailto:support@engramcards.com">support@engramcards.com</a>.
+  </p>
+</LegalLayout>

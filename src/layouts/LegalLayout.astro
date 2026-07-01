@@ -1,0 +1,197 @@
+---
+import type { Locale } from '../i18n';
+
+interface Props {
+  locale: Locale;
+  /** Page <title> and on-page H1. */
+  title: string;
+  /** Short meta description for SEO. */
+  description: string;
+  /** Human-readable effective date, already localized by the page. */
+  effective: string;
+  /** Path of the same document in the other locale, for hreflang. */
+  altPath: string;
+  /** Path of this document in the current locale, for canonical. */
+  selfPath: string;
+}
+
+const { locale, title, description, effective, altPath, selfPath } = Astro.props;
+const altLocale = locale === 'es' ? 'en' : 'es';
+const siteUrl = 'https://engramcards.com';
+const home = locale === 'es' ? '/' : '/en/';
+const backLabel = locale === 'es' ? 'Volver a Engram' : 'Back to Engram';
+const updatedLabel = locale === 'es' ? 'Vigente desde' : 'Effective';
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#FAF7F1" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0B1020" media="(prefers-color-scheme: dark)" />
+
+    <!-- Theme-init: runs before body paints to prevent FOUC. Mirrors Layout.astro. -->
+    <script is:inline>
+      (function () {
+        try {
+          if (localStorage.getItem('engram-theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <title>{title} · Engram</title>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={`${siteUrl}${selfPath}`} />
+    <link rel="alternate" hreflang={locale} href={`${siteUrl}${selfPath}`} />
+    <link rel="alternate" hreflang={altLocale} href={`${siteUrl}${altPath}`} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+  </head>
+
+  <body
+    class="min-h-screen bg-paper-100 font-body text-navy-900 antialiased transition-colors duration-300 selection:bg-amber-500/30 selection:text-navy-900 dark:bg-navy-900 dark:text-paper-100 dark:selection:text-paper-50"
+  >
+    <div class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">
+      <a
+        href={home}
+        class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-navy-400 transition-colors hover:text-amber-700 dark:text-paper-100/40 dark:hover:text-amber-500"
+      >
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6" />
+        </svg>
+        {backLabel}
+      </a>
+
+      <header class="mt-8 border-b border-paper-300 pb-8 dark:border-navy-800">
+        <h1 class="font-display text-display-md font-medium text-navy-900 dark:text-paper-100">
+          {title}
+        </h1>
+        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-navy-400 dark:text-paper-100/40">
+          {updatedLabel} {effective}
+        </p>
+      </header>
+
+      <article class="legal-prose mt-10">
+        <slot />
+      </article>
+
+      <footer class="mt-16 border-t border-paper-300 pt-8 font-mono text-xs text-navy-400 dark:border-navy-800 dark:text-paper-100/40">
+        <p>&copy; {new Date().getFullYear()} Engram · Tobías Pardo · UTN Facultad Regional Delta</p>
+        <p class="mt-1">Anki and AnkiDroid are trademarks of their respective owners. Engram is an independent product and is not affiliated with or endorsed by them.</p>
+      </footer>
+    </div>
+
+    <style is:global>
+      .legal-prose {
+        font-size: 0.975rem;
+        line-height: 1.75;
+        color: #24304a;
+      }
+      .dark .legal-prose {
+        color: rgba(250, 247, 241, 0.82);
+      }
+      .legal-prose h2 {
+        font-family: 'Fraunces', Georgia, serif;
+        font-size: 1.35rem;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+        margin-top: 2.75rem;
+        margin-bottom: 0.85rem;
+        color: #0b1020;
+      }
+      .dark .legal-prose h2 {
+        color: #faf7f1;
+      }
+      .legal-prose h3 {
+        font-family: 'Inter', system-ui, sans-serif;
+        font-size: 1.02rem;
+        font-weight: 600;
+        margin-top: 1.85rem;
+        margin-bottom: 0.5rem;
+        color: #11182a;
+      }
+      .dark .legal-prose h3 {
+        color: rgba(250, 247, 241, 0.95);
+      }
+      .legal-prose p {
+        margin-top: 0.85rem;
+        margin-bottom: 0.85rem;
+      }
+      .legal-prose ul {
+        list-style: disc;
+        padding-left: 1.4rem;
+        margin-top: 0.75rem;
+        margin-bottom: 0.95rem;
+      }
+      .legal-prose li {
+        margin-top: 0.35rem;
+        margin-bottom: 0.35rem;
+      }
+      .legal-prose li::marker {
+        color: #b87826;
+      }
+      .dark .legal-prose li::marker {
+        color: #e4a13f;
+      }
+      .legal-prose strong {
+        font-weight: 600;
+        color: #0b1020;
+      }
+      .dark .legal-prose strong {
+        color: #faf7f1;
+      }
+      .legal-prose a {
+        color: #b87826;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .dark .legal-prose a {
+        color: #e4a13f;
+      }
+      .legal-prose a:hover {
+        color: #8f5c1d;
+      }
+      .dark .legal-prose a:hover {
+        color: #f1ae4a;
+      }
+      .legal-prose .lead {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #3b4668;
+      }
+      .dark .legal-prose .lead {
+        color: rgba(250, 247, 241, 0.7);
+      }
+      .legal-prose .summary {
+        margin-top: 1.5rem;
+        border: 1px solid #ede8db;
+        border-radius: 0.75rem;
+        background: #fefcf7;
+        padding: 1.1rem 1.25rem;
+      }
+      .dark .legal-prose .summary {
+        border-color: #1a2339;
+        background: #11182a;
+      }
+      .legal-prose .summary p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+      .legal-prose .summary p + p {
+        margin-top: 0.5rem;
+      }
+    </style>
+  </body>
+</html>

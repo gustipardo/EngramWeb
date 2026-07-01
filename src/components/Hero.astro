@@ -1,0 +1,91 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+---
+
+<section class="relative overflow-hidden pt-32 pb-24 sm:pt-40 sm:pb-32">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-x-0 top-0 h-[40rem] bg-[radial-gradient(60%_50%_at_50%_0%,rgba(184,120,38,0.08),transparent_70%)] dark:bg-[radial-gradient(60%_50%_at_50%_0%,rgba(228,161,63,0.09),transparent_70%)]"></div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="grid items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/80">{i.hero.eyebrow}</p>
+        <h1 class="mt-5 font-display text-display-hero font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_96]" set:html={i.hero.title.replace(/\n/g, '<br/>')} />
+        <p class="mt-8 max-w-copy text-lg leading-relaxed text-navy-500 sm:text-xl sm:leading-relaxed dark:text-paper-100/70">{i.hero.subtitle}</p>
+
+        <div class="mt-10 flex flex-wrap items-center gap-4">
+          <a
+            href="#download"
+            class="inline-flex items-center gap-2 rounded-md bg-amber-600 px-6 py-3.5 text-base font-semibold text-paper-100 transition-colors hover:bg-amber-700 dark:bg-amber-500 dark:text-navy-900 dark:hover:bg-amber-300"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v12" /><path d="m6 9 6 6 6-6" /><path d="M5 21h14" />
+            </svg>
+            {i.hero.ctaPrimary}
+          </a>
+          <a
+            href="#how-it-works"
+            class="inline-flex items-center gap-2 rounded-md border border-paper-400 px-6 py-3.5 text-base font-medium text-navy-900 transition-colors hover:bg-paper-200 dark:border-navy-700 dark:text-paper-100 dark:hover:bg-navy-800"
+          >
+            {i.hero.ctaSecondary}
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <p class="mt-6 font-mono text-xs uppercase tracking-widest text-navy-400 dark:text-paper-100/40">{i.hero.ctaHint}</p>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="relative mx-auto hidden w-full max-w-[360px] lg:block">
+        <div class="rounded-[2rem] border border-paper-400 bg-paper-50 p-6 shadow-2xl shadow-navy-900/15 dark:border-navy-700 dark:bg-navy-850 dark:shadow-navy-950/60">
+          <div class="flex items-center justify-between font-mono text-xs text-navy-400 dark:text-paper-100/40">
+            <span>9:41</span>
+            <span>●●●● Wi-Fi 100%</span>
+          </div>
+          <div class="mt-8 flex items-center justify-center">
+            <span class="inline-flex items-center gap-2 rounded-full bg-amber-600/15 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-amber-700 dark:bg-amber-500/10 dark:text-amber-500">
+              <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-600 dark:bg-amber-500"></span>
+              {locale === 'es' ? 'Escuchando' : 'Listening'}
+            </span>
+          </div>
+          <div class="mt-10 flex flex-col items-center gap-4 text-center">
+            <p class="font-mono text-sm text-navy-400 dark:text-paper-100/40">/ˈres.ə.luːt/</p>
+            <p class="font-display text-5xl font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_72]">resolute</p>
+            <p class="text-sm leading-relaxed text-navy-500 dark:text-paper-100/60">
+              {locale === 'es'
+                ? 'firme, decidido, sin cambiar de opinión bajo presión'
+                : 'firm, unwavering, not changing opinion under pressure'}
+            </p>
+          </div>
+          <div class="mt-10 flex flex-col items-center gap-3">
+            <button class="flex h-16 w-16 animate-mic-halo items-center justify-center rounded-full bg-amber-600 text-paper-100 dark:bg-amber-500 dark:text-navy-900" aria-label="mic">
+              <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="3" width="6" height="12" rx="3" />
+                <path d="M5 11a7 7 0 0 0 14 0" />
+                <line x1="12" y1="18" x2="12" y2="22" />
+                <line x1="9" y1="22" x2="15" y2="22" />
+              </svg>
+            </button>
+            <span class="font-mono text-[10px] uppercase tracking-widest text-navy-400 dark:text-paper-100/40">
+              {locale === 'es' ? 'Mantené presionado para hablar' : 'Press and hold to talk'}
+            </span>
+          </div>
+          <div class="mt-8 flex justify-between border-t border-paper-300 pt-4 font-mono text-[10px] uppercase tracking-widest text-navy-400 dark:border-navy-800 dark:text-paper-100/40">
+            <span>{locale === 'es' ? 'Saltar' : 'Skip'}</span>
+            <span>12 / 36</span>
+            <span>{locale === 'es' ? 'Pausa' : 'Pause'}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+---
+
+<section id="faq" class="border-b border-paper-300 bg-paper-200/50 py-24 sm:py-32 dark:border-navy-800 dark:bg-navy-850/30">
+  <div class="mx-auto max-w-4xl px-4 sm:px-6">
+    <div class="mb-14 max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/80">{i.faq.eyebrow}</p>
+      <h2 class="mt-4 font-display text-display-lg font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_72]">
+        {i.faq.sectionTitle}
+      </h2>
+    </div>
+
+    <div class="divide-y divide-paper-300 border-y border-paper-300 dark:divide-navy-800 dark:border-navy-800">
+      {
+        i.faq.items.map((item) => (
+          <details class="group py-6">
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-left">
+              <span class="font-display text-lg font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_36]">{item.question}</span>
+              <svg class="mt-1.5 h-5 w-5 shrink-0 text-amber-700/70 transition-transform group-open:rotate-45 dark:text-amber-500/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 5v14" />
+                <path d="M5 12h14" />
+              </svg>
+            </summary>
+            <p class="mt-4 max-w-copy text-base leading-relaxed text-navy-500 dark:text-paper-100/70">{item.answer}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,186 @@
+{
+  "meta": {
+    "title": "Engram · Tus mazos de Anki, estudiados por voz",
+    "description": "App Android que convierte tus mazos de AnkiDroid en sesiones de estudio por voz con un tutor de IA en tiempo real. Sin streaks, sin gamificación. Tu review queue, caminando."
+  },
+  "nav": {
+    "features": "Cómo funciona",
+    "howItWorks": "Sesión",
+    "pricing": "Precio",
+    "faq": "FAQ",
+    "download": "Descargar APK"
+  },
+  "hero": {
+    "eyebrow": "Anki, para los oídos.",
+    "title": "Tus mazos de Anki,\nestudiados por voz.",
+    "subtitle": "No es un examen, es una conversación. El tutor te pregunta una card, escucha cómo la explicás, y te marca lo que falta. Aprendés formulando, no reconociendo.",
+    "ctaPrimary": "Descargar APK",
+    "ctaSecondary": "Ver cómo funciona",
+    "ctaHint": "Android 10+ · AnkiDroid requerido"
+  },
+  "manifesto": {
+    "title": "Sin streaks. Sin XP. Sin badges.",
+    "subtitle": "Solo tu review queue y el tiempo que creías muerto."
+  },
+  "trustStrip": {
+    "items": [
+      "Corre sobre el audio nativo de Gemini Live",
+      "Tu audio viaja directo al modelo, nunca a nuestros servidores",
+      "Sin dark patterns · cancelás con un tap",
+      "Abierto y auditable sobre AnkiDroid ContentProvider"
+    ]
+  },
+  "features": {
+    "eyebrow": "01 · Qué hace",
+    "sectionTitle": "Una herramienta, no una app educativa.",
+    "sectionSubtitle": "No gamificamos el estudio. No te vendemos contenido. Conectamos tu AnkiDroid con un tutor que conversa sobre tus cards en vez de tomarte examen.",
+    "items": [
+      {
+        "title": "Evaluación semántica real",
+        "description": "Sinónimos, orden distinto, frase natural. Todo ok. No pide match textual. Si dudás, el tutor te deja corregir manualmente sin romper tu scheduling de FSRS."
+      },
+      {
+        "title": "Tus mazos, agnóstico al tema",
+        "description": "Medicina, dev, idiomas, derecho, certificaciones cloud. Funciona con cualquier mazo de AnkiDroid. No traemos contenido predefinido."
+      },
+      {
+        "title": "Manos y ojos libres",
+        "description": "Foreground service de Android. La sesión sigue con la pantalla apagada, caminando, lavando platos, en el gimnasio. Nunca manejando."
+      },
+      {
+        "title": "Tu audio no toca nuestro backend",
+        "description": "Conexión directa entre tu teléfono y el modelo. Nuestro servidor solo emite el token efímero. No almacenamos audio, ni lo procesamos, ni lo re-transmitimos."
+      },
+      {
+        "title": "Estudiá en cualquier idioma",
+        "description": "Configurás el idioma del tutor por mazo. Un mazo en español en español, uno en japonés en japonés. El audio nativo multilingüe de Gemini Live cambia solo."
+      },
+      {
+        "title": "Anki sigue siendo la fuente de verdad",
+        "description": "Leemos via ContentProvider. No editamos tus cards, no cambiamos tu deck options, no rompemos tu sync con AnkiWeb. Anki es el hermano mayor respetado."
+      }
+    ]
+  },
+  "howItWorks": {
+    "eyebrow": "02 · Una sesión",
+    "sectionTitle": "Cómo se siente estudiar sin pantalla.",
+    "sectionSubtitle": "Cuatro gestos. Ninguno después del segundo.",
+    "steps": [
+      {
+        "step": "01",
+        "title": "Otorgás permisos una sola vez",
+        "description": "Micrófono y AnkiDroid ContentProvider. Sin registro por email, sin tutorial de qué es una flashcard."
+      },
+      {
+        "step": "02",
+        "title": "Elegís un mazo",
+        "description": "Se listan tus decks con due cards. Tapeás uno. Ponete los auriculares y guardá el teléfono."
+      },
+      {
+        "step": "03",
+        "title": "Conversás con el tutor",
+        "description": "Lee la carta, escucha tu respuesta, la evalúa y avanza. Comandos de voz: repetir, saltar, pausar, corregir."
+      },
+      {
+        "step": "04",
+        "title": "Los resultados vuelven a Anki",
+        "description": "Again, Hard, Good o Easy según la evaluación. Tu FSRS sigue corriendo como siempre."
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "03 · Precio",
+    "sectionTitle": "Cobramos lo que cuesta.",
+    "lede": "Las APIs de voz cuestan plata. Lo decimos directamente porque preferimos que vos entiendas dónde va tu dinero.",
+    "trial": {
+      "label": "Trial incluido",
+      "value": "10 sesiones gratis",
+      "note": "Sin tarjeta. Sin inscripción por email. Probás, y si te sirve, te suscribís."
+    },
+    "plan": {
+      "label": "Plan único",
+      "price": "$5",
+      "priceSuffix": "/ mes",
+      "note": "Cap generoso de sesiones. Alcanza para unos 20 minutos diarios con margen.",
+      "features": [
+        "Tutor de audio nativo de Gemini Live",
+        "Todos los mazos de tu AnkiDroid",
+        "Todas las sesiones incluidas en el plan",
+        "Cancelás desde Play Store con un tap"
+      ]
+    },
+    "antiDarkPattern": "No tenemos \"¿estás seguro de cancelar?\". No escondemos el botón. No cobramos un mes extra. El día que canceles, cancela."
+  },
+  "faq": {
+    "eyebrow": "04 · FAQ",
+    "sectionTitle": "Lo que vas a querer saber.",
+    "items": [
+      {
+        "question": "¿Modifica mi colección de Anki?",
+        "answer": "No. Leemos via ContentProvider y escribimos de vuelta los resultados Again, Hard, Good o Easy, igual que si hubieras tapeado en AnkiDroid. No tocamos cards, note types, deck options ni tu sync con AnkiWeb."
+      },
+      {
+        "question": "¿Qué pasa si la IA evalúa mal?",
+        "answer": "Decís \"marcar bien\" o \"marcar mal\" y el resultado se sobrescribe. Si la corrección sistemática supera el 10%, el producto está roto. Es un indicador que monitoreamos."
+      },
+      {
+        "question": "¿Mi FSRS scheduling se rompe?",
+        "answer": "No. El resultado de la sesión entra a AnkiDroid como un review más. FSRS lo procesa con la misma lógica que cualquier otra review. Tu scheduling queda intacto."
+      },
+      {
+        "question": "¿Dónde viaja mi audio?",
+        "answer": "Directo de tu teléfono a Gemini. Nuestro backend solo emite el token efímero de sesión. No almacenamos audio. Podés auditarlo: el tráfico no pasa por ningún servidor nuestro."
+      },
+      {
+        "question": "¿Funciona sin internet?",
+        "answer": "No. El tutor es un modelo online. Si perdés conexión a mitad de sesión, la sesión se pausa y retoma sola cuando volvés a tener señal. Lo que ya respondiste queda guardado."
+      },
+      {
+        "question": "¿iOS?",
+        "answer": "Todavía no. La integración con AnkiDroid es Android-only (AnkiMobile en iOS no expone ContentProvider). iOS queda para después de validar el producto."
+      },
+      {
+        "question": "¿Puedo usarlo manejando?",
+        "answer": "No. En ninguna situación. Nunca lo vamos a promover para auto, moto ni bicicleta. El caso de uso es caminar, cocinar, lavar platos, gym. Lugares donde un segundo de atención no te mata."
+      },
+      {
+        "question": "¿Por qué pagamos si la API la pago yo?",
+        "answer": "No la pagás vos. La suscripción de $5 incluye las sesiones, nosotros pagamos el consumo de Gemini. Por eso hay cap diario: si lo sacáramos, la API costaría más que el precio."
+      }
+    ]
+  },
+  "cta": {
+    "eyebrow": "Probalo",
+    "title": "Convertí el tiempo\nmuerto.",
+    "subtitle": "Bajate el APK, conectá AnkiDroid, probá 10 sesiones sin pagar. Empezá con la próxima caminata.",
+    "button": "Descargar APK",
+    "hint": "Android 10 o superior · AnkiDroid v2.17+"
+  },
+  "footer": {
+    "tagline": "Engram · Conversational Flashcards. Un tutor de voz sobre tu AnkiDroid.",
+    "builtBy": "Hecho por Tobías Pardo · UTN Facultad Regional Delta",
+    "sections": {
+      "product": "Producto",
+      "resources": "Recursos",
+      "legal": "Legal"
+    },
+    "links": {
+      "features": "Cómo funciona",
+      "howItWorks": "Sesión",
+      "pricing": "Precio",
+      "faq": "FAQ",
+      "download": "Descargar APK",
+      "changelog": "Changelog",
+      "roadmap": "Roadmap",
+      "privacy": "Privacidad",
+      "terms": "Términos",
+      "safety": "Uso seguro"
+    },
+    "theme": {
+      "label": "Tema",
+      "light": "Claro",
+      "dark": "Oscuro"
+    },
+    "copyright": "Engram · Todos los derechos reservados."
+  }
+}

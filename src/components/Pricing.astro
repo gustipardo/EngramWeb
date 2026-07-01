@@ -1,0 +1,70 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale);
+---
+
+<section id="pricing" class="border-b border-paper-300 py-24 sm:py-32 dark:border-navy-800">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mb-14 max-w-2xl">
+      <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/80">{i.pricing.eyebrow}</p>
+      <h2 class="mt-4 font-display text-display-lg font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_72]">
+        {i.pricing.sectionTitle}
+      </h2>
+      <p class="mt-5 max-w-copy text-lg leading-relaxed text-navy-500 dark:text-paper-100/60">{i.pricing.lede}</p>
+    </div>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      <article class="rounded-xl border border-paper-300 bg-paper-50 p-8 dark:border-navy-800 dark:bg-navy-850/60">
+        <p class="font-mono text-xs uppercase tracking-[0.18em] text-navy-400 dark:text-paper-100/50">{i.pricing.trial.label}</p>
+        <p class="mt-6 font-display text-4xl font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_72]">
+          {i.pricing.trial.value}
+        </p>
+        <p class="mt-4 text-sm leading-relaxed text-navy-500 dark:text-paper-100/60">{i.pricing.trial.note}</p>
+      </article>
+
+      <article class="relative rounded-xl border border-amber-600/40 bg-gradient-to-br from-paper-50 to-paper-100 p-8 dark:border-amber-500/40 dark:from-navy-850 dark:to-navy-900">
+        <div class="pointer-events-none absolute inset-0 rounded-xl bg-[radial-gradient(60%_60%_at_100%_0%,rgba(184,120,38,0.10),transparent_70%)] dark:bg-[radial-gradient(60%_60%_at_100%_0%,rgba(228,161,63,0.10),transparent_70%)]"></div>
+        <div class="relative">
+          <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/90">{i.pricing.plan.label}</p>
+
+          <div class="mt-6 flex items-baseline gap-1">
+            <span class="font-display text-6xl font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_96]">
+              {i.pricing.plan.price}
+            </span>
+            <span class="font-mono text-sm text-navy-400 dark:text-paper-100/50">{i.pricing.plan.priceSuffix}</span>
+          </div>
+
+          <p class="mt-4 max-w-sm text-sm leading-relaxed text-navy-500 dark:text-paper-100/60">{i.pricing.plan.note}</p>
+
+          <ul class="mt-6 space-y-2.5 text-sm text-navy-700 dark:text-paper-100/80">
+            {
+              i.pricing.plan.features.map((feat) => (
+                <li class="flex items-start gap-2.5">
+                  <svg class="mt-0.5 h-4 w-4 shrink-0 text-amber-700 dark:text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  <span>{feat}</span>
+                </li>
+              ))
+            }
+          </ul>
+
+          <a href="#download" class="mt-8 inline-flex w-full items-center justify-center rounded-md bg-amber-600 px-6 py-3 font-semibold text-paper-100 transition-colors hover:bg-amber-700 dark:bg-amber-500 dark:text-navy-900 dark:hover:bg-amber-300">
+            {i.nav.download}
+          </a>
+        </div>
+      </article>
+    </div>
+
+    <p class="mx-auto mt-10 max-w-2xl text-center font-mono text-xs leading-relaxed text-navy-400 dark:text-paper-100/50">
+      {i.pricing.antiDarkPattern}
+    </p>
+  </div>
+</section>
