@@ -27,7 +27,7 @@
       "Runs on Gemini Live native audio",
       "Audio travels directly to the model, never our servers",
       "No dark patterns · cancel with one tap",
-      "Open and auditable on AnkiDroid ContentProvider"
+      "Open and auditable on the official AnkiDroid API"
     ]
   },
   "features": {
@@ -37,7 +37,7 @@
     "items": [
       {
         "title": "Real semantic evaluation",
-        "description": "Synonyms, reordered words, natural paraphrase. All fine. No textual match required. If in doubt, you can override the tutor's call without breaking FSRS scheduling."
+        "description": "Synonyms, reordered words, natural paraphrase. All fine. No textual match required. If in doubt, you can override the tutor's call without breaking your review schedule."
       },
       {
         "title": "Topic-agnostic decks",
@@ -45,11 +45,11 @@
       },
       {
         "title": "Hands-free, eyes-free",
-        "description": "Android foreground service. Session keeps running with the screen off. Walking, washing dishes, at the gym. Never while driving."
+        "description": "The session keeps running with the screen off: walking, washing dishes, at the gym. Never while driving."
       },
       {
         "title": "Your audio doesn't touch our backend",
-        "description": "A direct connection between your phone and the model. Our server only mints the ephemeral session token. We don't store audio, process it, or relay it."
+        "description": "A direct connection between your phone and the model. Our server only issues a temporary key to start the session. We don't store audio, process it, or relay it."
       },
       {
         "title": "Studies in any language",
@@ -57,7 +57,7 @@
       },
       {
         "title": "Anki stays the source of truth",
-        "description": "We read via ContentProvider. We don't edit your cards, don't change your deck options, don't break your AnkiWeb sync. Anki is the respected older sibling."
+        "description": "We use the official AnkiDroid API. We don't edit your cards, don't change your deck options, don't break your AnkiWeb sync. Anki is the respected older sibling."
       }
     ]
   },
@@ -69,7 +69,7 @@
       {
         "step": "01",
         "title": "You grant permissions once",
-        "description": "Microphone and AnkiDroid ContentProvider. No email signup, no tutorial about what a flashcard is."
+        "description": "Microphone and AnkiDroid. No email signup, no tutorial about what a flashcard is."
       },
       {
         "step": "02",
@@ -84,7 +84,7 @@
       {
         "step": "04",
         "title": "Results flow back into Anki",
-        "description": "Again, Hard, Good or Easy based on the evaluation. Your FSRS keeps running like nothing happened."
+        "description": "Again, Hard, Good or Easy based on the evaluation. Your review schedule keeps running like nothing happened."
       }
     ]
   },
@@ -117,19 +117,19 @@
     "items": [
       {
         "question": "Does it modify my Anki collection?",
-        "answer": "No. We read via ContentProvider and write back Again, Hard, Good or Easy results, exactly as if you had tapped them in AnkiDroid. Cards, note types, deck options and your AnkiWeb sync stay untouched."
+        "answer": "No. We use the official AnkiDroid API to read your cards and write back Again, Hard, Good or Easy results, exactly as if you had tapped them yourself. Cards, note types, deck options and your AnkiWeb sync stay untouched."
       },
       {
         "question": "What if the AI grades me wrong?",
         "answer": "Say \"mark correct\" or \"mark wrong\" and the result is overwritten. If manual overrides go above 10% the product is broken. It's a metric we monitor."
       },
       {
-        "question": "Does this break my FSRS scheduling?",
-        "answer": "No. The session result enters AnkiDroid as a normal review. FSRS processes it with the exact same logic as any other. Your scheduling stays intact."
+        "question": "Does this mess up my review schedule?",
+        "answer": "No. The session result enters AnkiDroid as a normal review, and your scheduler (the same one you use in Anki) processes it just like any other. Your review schedule stays intact."
       },
       {
         "question": "Where does my audio travel?",
-        "answer": "Directly from your phone to Gemini. Our backend only mints the ephemeral session token. No audio is stored. You can audit it: traffic never hits our server."
+        "answer": "Directly from your phone to Gemini. Our backend only issues a temporary key for the session. No audio is stored. You can audit it: traffic never hits our server."
       },
       {
         "question": "Does it work offline?",
@@ -137,7 +137,7 @@
       },
       {
         "question": "iOS?",
-        "answer": "Not yet. The AnkiDroid integration is Android-only (AnkiMobile on iOS doesn't expose a ContentProvider). iOS comes after we validate the product."
+        "answer": "Not yet. The AnkiDroid integration is Android-only (AnkiMobile on iOS doesn't allow this integration). iOS comes after we validate the product."
       },
       {
         "question": "Can I use it while driving?",
