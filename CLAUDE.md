@@ -47,24 +47,30 @@ Translations:
 ```
 Web/
 ├── astro.config.mjs     ← Astro + Tailwind + sitemap + i18n config
-├── tailwind.config.mjs  ← Custom blue primary palette + purple accents
+├── tailwind.config.mjs  ← Engram palette: navy / amber / paper / sage / terracota (mirrors _design/03-tokens)
 ├── tsconfig.json        ← Extends Astro strict defaults
 ├── package.json
 ├── public/              ← Static assets (favicon.svg referenced; add real assets here)
 └── src/
     ├── layouts/
-    │   └── Layout.astro      ← Master HTML template: meta, JSON-LD (FAQPage + SoftwareApplication), canonical + hreflang, Open Graph
+    │   ├── Layout.astro      ← Master HTML template: meta, JSON-LD (FAQPage + SoftwareApplication), canonical + hreflang, Open Graph
+    │   └── LegalLayout.astro ← Dedicated legal chrome (own head/canonical/hreflang, no marketing JSON-LD)
     ├── pages/
-    │   ├── index.astro       ← /       (Spanish)
-    │   └── en/index.astro    ← /en/    (English)
+    │   ├── index.astro           ← /            (Spanish)
+    │   ├── privacy.astro         ← /privacy     (ES) — legal copy inline, NOT in i18n (intentional exception)
+    │   ├── terms.astro           ← /terms       (ES)
+    │   └── en/                   ← /en/, /en/privacy, /en/terms (English mirrors)
     ├── components/           ← One component per landing section
-    │   ├── Header.astro       ← Nav + logo + lang switcher + download CTA + mobile hamburger
-    │   ├── Hero.astro         ← Tagline, headline, subtitle, dual CTAs over blue gradient
-    │   ├── Features.astro     ← 6-card grid (voice study, instant evaluation, deck support, hands-free, active recall, conversation) with SVG icons
-    │   ├── HowItWorks.astro   ← Numbered step list on gray background
+    │   ├── Header.astro       ← Nav + Engram wordmark + lang switcher + download CTA + mobile hamburger
+    │   ├── Hero.astro         ← Tagline, headline, subtitle, dual CTAs
+    │   ├── TrustStrip.astro   ← Credibility strip under the hero
+    │   ├── Features.astro     ← 6-card grid with SVG icons
+    │   ├── HowItWorks.astro   ← Numbered step list
+    │   ├── Manifesto.astro    ← Anti-Duolingo positioning section
+    │   ├── Pricing.astro      ← Plan cards (trial + monthly/yearly)
     │   ├── FAQ.astro          ← Collapsible accordion with chevron rotation
-    │   ├── CTA.astro          ← Full-width download CTA with blue gradient
-    │   └── Footer.astro       ← 4-column footer: brand / product / legal / copyright
+    │   ├── CTA.astro          ← Full-width download CTA (APK button still href="#", pending a real URL)
+    │   └── Footer.astro       ← Footer: brand / product / legal / support (mailto) / copyright
     └── i18n/
         ├── es.json
         ├── en.json
@@ -73,8 +79,8 @@ Web/
 
 ## Conventions
 
-- **Dark mode is the brand default** (see `_design/01-identidad.md`), but the landing currently renders in light mode with blue primaries. If you change this, audit all components.
-- **Copy lives in `src/i18n/*.json` only.** Don't put strings in `.astro` files; add keys to both `es.json` and `en.json`.
+- **Light mode is the brand default** (decision 2026-06-27; overrides the older dark-default note in `_design/01-identidad.md`). The landing renders light with the Engram palette (paper background, amber accents).
+- **Copy lives in `src/i18n/*.json` only.** Don't put strings in `.astro` files; add keys to both `es.json` and `en.json`. Exception: long-form legal text lives inline in `privacy/terms` pages by design.
 - **SEO:** when adding a page, update `Layout.astro`'s canonical/hreflang generation and check sitemap output.
 - **Accessibility baseline:** ARIA labels present, semantic HTML, mobile breakpoints via Tailwind (`sm`, `md`, `lg`). Preserve these when editing.
 
