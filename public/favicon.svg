@@ -1,9 +1,5 @@
 <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="200" height="200" fill="#FAF7F1"></rect>
-  <rect x="28.00" y="30.00" width="108.00" height="140.00" rx="11.60" fill="#B87826"></rect>
-  <rect x="51.76" y="68.80" width="60.48" height="6.40" rx="3.20" fill="#FAF7F1"></rect>
-  <rect x="51.76" y="113.60" width="60.48" height="6.40" rx="3.20" fill="#FAF7F1" opacity=".55"></rect>
-  <line x1="150.00" y1="81.00" x2="173.12" y2="68.71" stroke="#B87826" stroke-width="7.60" stroke-linecap="round" opacity="0.5"></line>
-  <line x1="150.00" y1="100.00" x2="183.88" y2="100.00" stroke="#B87826" stroke-width="7.60" stroke-linecap="round" opacity="0.9"></line>
-  <line x1="150.00" y1="119.00" x2="173.12" y2="131.29" stroke="#B87826" stroke-width="7.60" stroke-linecap="round" opacity="0.5"></line>
+  <rect x="46.00" y="30.00" width="108.00" height="140.00" rx="11.60" fill="#B87826"></rect>
+  <rect x="69.76" y="68.80" width="60.48" height="6.40" rx="3.20" fill="#FAF7F1"></rect>
+  <rect x="69.76" y="113.60" width="60.48" height="6.40" rx="3.20" fill="#FAF7F1" opacity=".55"></rect>
 </svg>
