@@ -2,8 +2,11 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 
+import cloudflare from "@astrojs/cloudflare";
+
 export default defineConfig({
   site: "https://engramcards.com",
+
   integrations: [
     tailwind(),
     sitemap({
@@ -16,6 +19,7 @@ export default defineConfig({
       },
     }),
   ],
+
   i18n: {
     defaultLocale: "es",
     locales: ["es", "en"],
@@ -23,4 +27,6 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+
+  adapter: cloudflare()
 });
