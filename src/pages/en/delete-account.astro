@@ -1,0 +1,55 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  locale="en"
+  title="Delete your Engram account"
+  description="How to delete your Engram account and the data tied to it."
+  effective="October 8, 2026"
+  selfPath="/en/delete-account"
+  altPath="/delete-account"
+>
+  <p class="lead">
+    You can delete your Engram account at any time. Deleting it removes your
+    account and the data we hold about it right away.
+  </p>
+
+  <h2>From the app</h2>
+  <ol>
+    <li>Open Engram and tap your avatar to go to <strong>Account</strong>.</li>
+    <li>Scroll to the bottom and tap <strong>Delete account</strong>.</li>
+    <li>Confirm. You are signed out and the account is gone.</li>
+  </ol>
+
+  <h2>Without the app</h2>
+  <p>
+    Email <a href="mailto:support@engramcards.com?subject=Delete%20my%20account">support@engramcards.com</a>
+    from the Google account you signed in with, with the subject "Delete my
+    account". We delete it within 7 days and reply to confirm.
+  </p>
+
+  <h2>What is deleted</h2>
+  <ul>
+    <li>Your account (name, email and Google account identifier).</li>
+    <li>Your plan, voice-minute and AI-deck usage, and token usage counts.</li>
+    <li>Feedback you sent from the app.</li>
+    <li>The link between your account and your Google Play purchase.</li>
+  </ul>
+
+  <h2>What is not deleted</h2>
+  <ul>
+    <li>
+      <strong>Your Google Play subscription is not cancelled.</strong> Cancel it
+      first in Google Play → Payments &amp; subscriptions → Subscriptions.
+    </li>
+    <li>
+      Your decks stay on your phone: AnkiDroid decks are in AnkiDroid, and decks
+      you made in Engram stay in the app until you uninstall it.
+    </li>
+    <li>
+      Crash reports and analytics events are kept by Firebase Crashlytics and
+      PostHog for their limited retention period, then removed.
+    </li>
+  </ul>
+</LegalLayout>

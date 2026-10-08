@@ -6,7 +6,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   locale="es"
   title="Política de Privacidad"
   description="Cómo Engram (Flashcards Conversacionales) recopila, usa y comparte tu información."
-  effective="30 de junio de 2026"
+  effective="8 de octubre de 2026"
   selfPath="/privacy"
   altPath="/en/privacy"
 >
@@ -18,7 +18,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   </p>
 
   <div class="summary">
-    <p><strong>En resumen.</strong> Usamos el inicio de sesión de Google para crear tu cuenta y guardamos el estado de tu prueba y suscripción. Durante una sesión de estudio, el audio de tu micrófono y el texto de las tarjetas que se repasan se envían a Google Gemini para que el tutor te escuche y te tome la lección. Nunca guardamos tu audio. Los pagos los gestiona por completo Google Play. No vendemos tus datos.</p>
+    <p><strong>En resumen.</strong> Usamos el inicio de sesión de Google para crear tu cuenta y guardamos tu plan y cuántos minutos de voz usaste en el mes. Durante una sesión de estudio, el audio de tu micrófono y el texto de las tarjetas que se repasan se envían a OpenAI para que el tutor te escuche y te tome la lección, y tu respuesta transcripta se envía a TypeSafe (Jev) para calificarla. Si creás un mazo con IA, el pedido y los archivos que elijas se envían a OpenAI. Nunca guardamos tu audio. Los pagos los gestiona por completo Google Play. No vendemos tus datos. Podés eliminar tu cuenta desde la app.</p>
   </div>
 
   <h2>1. Quiénes somos</h2>
@@ -45,12 +45,12 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   <p>
     Una sesión de estudio es una conversación en vivo. Mientras una sesión está
     activa, la app captura el audio de tu micrófono y lo transmite en tiempo real
-    al servicio <strong>Google Gemini</strong>, que transcribe lo que decís,
-    evalúa tu respuesta y genera las respuestas habladas del tutor. La captura del
+    a <strong>OpenAI</strong> (Realtime API), que transcribe lo que decís y
+    genera las respuestas habladas del tutor. La captura del
     micrófono ocurre <strong>solo durante una sesión activa</strong> y se detiene
     cuando la sesión termina. <strong>No grabamos ni almacenamos tu audio en
     nuestros servidores</strong>, y no hay ningún servidor de Engram en el camino
-    del audio. El audio lo procesa Google bajo sus propios términos (ver
+    del audio. El audio lo procesa OpenAI bajo sus propios términos (ver
     "Servicios de terceros").
   </p>
 
@@ -60,22 +60,44 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     a través de la API oficial de AnkiDroid. Esto incluye el
     texto del frente y el dorso de las tarjetas pendientes y su información de
     programación. La app lee esto localmente en tu dispositivo para llevar
-    adelante la sesión, y el texto de las tarjetas que se repasan se envía a Google
-    Gemini durante la sesión para que el tutor pueda preguntarlas y calificarlas.
+    adelante la sesión, y el texto de las tarjetas que se repasan se envía a
+    OpenAI durante la sesión para que el tutor pueda preguntarlas, y a TypeSafe
+    (Jev) junto con la transcripción de tu respuesta para calificarla.
     Cuando respondés, la app escribe el resultado del repaso (la calificación) de
     vuelta en tu colección local de AnkiDroid. No copiamos tu biblioteca de mazos
     a nuestros servidores ni sincronizamos con AnkiWeb (eso sigue siendo una
     acción aparte que iniciás vos dentro de AnkiDroid).
   </p>
 
-  <h3>Datos de prueba y suscripción</h3>
+  <h3>Mazos que creás con IA</h3>
   <p>
-    Guardamos un registro pequeño asociado a tu cuenta que lleva la fecha de
-    inicio de tu prueba gratuita, cuántas sesiones de estudio usaste y el estado y
-    plan de tu suscripción. Se almacena en Google Cloud Firestore y es lo que
-    controla el acceso cuando termina la prueba. Cuando te suscribís, Google Play
-    nos envía un comprobante de compra para que podamos verificar y habilitar tu
-    suscripción.
+    Cuando usás "Crear con IA", el pedido que escribís, tus respuestas a sus
+    preguntas y los archivos que adjuntes (PDF, presentaciones, documentos,
+    imágenes) se envían a través de nuestro servidor a <strong>OpenAI</strong>
+    para escribir el mazo, y un resumen del pedido se envía a
+    <strong>TypeSafe (Jev)</strong> para elegir la configuración del mazo. Le
+    pedimos a OpenAI que no guarde estos pedidos, y nosotros no conservamos tus
+    archivos. El mazo resultante se guarda solo en tu dispositivo.
+  </p>
+
+  <h3>Datos de plan y uso</h3>
+  <p>
+    Guardamos un registro pequeño asociado a tu cuenta con tu plan, el estado de
+    tu suscripción, cuántos minutos de voz y mazos con IA usaste cada mes,
+    cuántas sesiones iniciaste y la cantidad de tokens de IA que usó cada
+    función por día. Son solo cantidades: nada de audio, transcripciones ni
+    texto de tarjetas. Se almacena en Google Cloud Firestore y es lo que aplica
+    el límite mensual de tu plan. Cuando te suscribís, Google Play nos envía un
+    comprobante de compra para que podamos verificar y habilitar tu suscripción.
+  </p>
+
+  <h3>Comentarios que nos enviás</h3>
+  <p>
+    Si nos enviás comentarios desde la app o calificás una sesión, guardamos tu
+    mensaje o calificación junto con tu identificador de cuenta y tu correo,
+    la versión de la app, la versión de Android y el idioma del dispositivo, y
+    el nombre del mazo cuando se trata de una sesión, para poder responderte y
+    corregir problemas.
   </p>
 
   <h3>Analítica de uso</h3>
@@ -92,15 +114,18 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   <p>
     Nuestros proveedores (Google Firebase y Google Play) reciben automáticamente
     datos técnicos estándar necesarios para entregar y proteger la app, como la
-    versión de la app, información del dispositivo y del sistema operativo, y datos
-    básicos de diagnóstico o de fallos.
+    versión de la app e información del dispositivo y del sistema operativo.
+    Cuando la app se cierra por un error o falla, <strong>Firebase
+    Crashlytics</strong> recibe un informe del fallo (el error, el estado de la
+    app en ese momento, el modelo del dispositivo y la versión del sistema)
+    asociado a tu identificador de cuenta.
   </p>
 
   <h2>3. Cómo usamos tu información</h2>
   <ul>
     <li>Para brindar la función principal: un tutor de voz en tiempo real sobre tus mazos de AnkiDroid.</li>
     <li>Para crear tu cuenta, iniciar tu sesión y mantener tu acceso sincronizado entre dispositivos.</li>
-    <li>Para gestionar la prueba gratuita y para verificar y administrar suscripciones.</li>
+    <li>Para aplicar los minutos de voz y los mazos con IA mensuales de tu plan, y para verificar y administrar suscripciones.</li>
     <li>Para entender el uso, diagnosticar problemas y mejorar la app.</li>
     <li>Para responder tus consultas de soporte.</li>
     <li>Para cumplir obligaciones legales y hacer valer nuestros Términos de Uso.</li>
@@ -113,8 +138,9 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     servicio:
   </p>
   <ul>
-    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions):</strong> inicio de sesión, registros de prueba y suscripción, y lógica del backend.</li>
-    <li><strong>Google Gemini:</strong> procesamiento en tiempo real del audio de tu sesión y del texto de las tarjetas en repaso para impulsar el tutor de IA.</li>
+    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions, Crashlytics):</strong> inicio de sesión, registros de plan y uso, lógica del backend e informes de fallos.</li>
+    <li><strong>OpenAI:</strong> procesamiento en tiempo real del audio de tu sesión y del texto de las tarjetas en repaso para impulsar el tutor de IA, y escritura de los mazos que creás con IA.</li>
+    <li><strong>TypeSafe (Jev):</strong> calificación de tus respuestas transcriptas según la tarjeta, y elección de la configuración de los mazos que creás con IA.</li>
     <li><strong>Google Play Billing:</strong> procesa todos los pagos de suscripción. Engram nunca recibe ni almacena los datos de tu tarjeta.</li>
     <li><strong>PostHog:</strong> analítica de uso del producto.</li>
   </ul>
@@ -128,10 +154,12 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   <p>
     No conservamos el audio de las sesiones; se procesa de forma transitoria y se
     descarta. El registro de tu cuenta y los datos de suscripción se mantienen
-    mientras exista tu cuenta para que el servicio funcione. Los eventos de
-    analítica se conservan por un período limitado para el análisis de tendencias.
-    Cuando nos pedís eliminar tu cuenta, borramos el registro de cuenta que
-    tenemos (ver "Tus derechos").
+    mientras exista tu cuenta para que el servicio funcione, junto con las
+    cantidades de uso. Los comentarios se conservan hasta que se resuelven. Los
+    eventos de analítica y los informes de fallos se conservan por un período
+    limitado. Cuando eliminás tu cuenta, borramos de inmediato el registro de tu
+    cuenta, las cantidades de uso, los comentarios y los registros de compra (ver
+    "Tus derechos").
   </p>
 
   <h2>6. Seguridad</h2>
@@ -146,7 +174,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h2>7. Transferencias internacionales</h2>
   <p>
-    Nuestros proveedores (Google y PostHog) operan a nivel global, por lo que tu
+    Nuestros proveedores (Google, OpenAI, TypeSafe y PostHog) operan a nivel global, por lo que tu
     información puede procesarse en servidores ubicados fuera de tu país de
     residencia, incluidos Estados Unidos y la Unión Europea. Cuando corresponde,
     estas transferencias se apoyan en las garantías que ofrecen esos proveedores.
@@ -156,9 +184,11 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   <p>
     Según dónde vivas (por ejemplo, bajo la Ley 25.326 de Argentina o el RGPD de
     la UE), podés tener derecho a acceder, corregir, exportar o eliminar tus datos
-    personales, y a oponerte o restringir ciertos tratamientos. Para ejercer
-    cualquiera de ellos, o para pedir la eliminación de tu cuenta y los datos
-    asociados, escribí a
+    personales, y a oponerte o restringir ciertos tratamientos. Podés eliminar
+    tu cuenta y los datos asociados en cualquier momento desde la app
+    (Cuenta → Eliminar cuenta), o siguiendo los pasos de nuestra
+    <a href="/delete-account">página de eliminación de cuenta</a>. Para ejercer
+    cualquier otro derecho, escribí a
     <a href="mailto:support@engramcards.com">support@engramcards.com</a>.
     También podés frenar la recopilación de datos en cualquier momento cerrando
     sesión, revocando el permiso de AnkiDroid o de micrófono en los ajustes de

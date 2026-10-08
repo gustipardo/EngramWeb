@@ -1,0 +1,56 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  locale="es"
+  title="Eliminar tu cuenta de Engram"
+  description="Cómo eliminar tu cuenta de Engram y los datos asociados."
+  effective="8 de octubre de 2026"
+  selfPath="/delete-account"
+  altPath="/en/delete-account"
+>
+  <p class="lead">
+    Podés eliminar tu cuenta de Engram cuando quieras. Al eliminarla, borramos
+    de inmediato tu cuenta y los datos que tenemos asociados a ella.
+  </p>
+
+  <h2>Desde la app</h2>
+  <ol>
+    <li>Abrí Engram y tocá tu avatar para ir a <strong>Cuenta</strong>.</li>
+    <li>Bajá hasta el final y tocá <strong>Eliminar cuenta</strong>.</li>
+    <li>Confirmá. Se cierra tu sesión y la cuenta queda eliminada.</li>
+  </ol>
+
+  <h2>Sin la app</h2>
+  <p>
+    Escribí a <a href="mailto:support@engramcards.com?subject=Eliminar%20mi%20cuenta">support@engramcards.com</a>
+    desde la cuenta de Google con la que iniciaste sesión, con el asunto
+    "Eliminar mi cuenta". La eliminamos dentro de los 7 días y te respondemos
+    para confirmarlo.
+  </p>
+
+  <h2>Qué se elimina</h2>
+  <ul>
+    <li>Tu cuenta (nombre, correo e identificador de cuenta de Google).</li>
+    <li>Tu plan, el uso de minutos de voz y de mazos con IA, y las cantidades de tokens usados.</li>
+    <li>Los comentarios que enviaste desde la app.</li>
+    <li>El vínculo entre tu cuenta y tu compra en Google Play.</li>
+  </ul>
+
+  <h2>Qué no se elimina</h2>
+  <ul>
+    <li>
+      <strong>Tu suscripción de Google Play no se cancela.</strong> Cancelala
+      primero en Google Play → Pagos y suscripciones → Suscripciones.
+    </li>
+    <li>
+      Tus mazos quedan en tu teléfono: los de AnkiDroid en AnkiDroid, y los que
+      creaste en Engram quedan en la app hasta que la desinstales.
+    </li>
+    <li>
+      Los informes de fallos y los eventos de analítica los conservan Firebase
+      Crashlytics y PostHog durante su período limitado, y después se borran.
+    </li>
+  </ul>
+</LegalLayout>

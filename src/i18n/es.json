@@ -24,7 +24,7 @@
   },
   "trustStrip": {
     "items": [
-      "Corre sobre el audio nativo de Gemini Live",
+      "Corre sobre la voz en tiempo real de OpenAI",
       "Tu audio viaja directo al modelo, nunca a nuestros servidores",
       "Sin dark patterns · cancelás con un tap",
       "Abierto y auditable sobre la API oficial de AnkiDroid"
@@ -53,7 +53,7 @@
       },
       {
         "title": "Estudiá en cualquier idioma",
-        "description": "Configurás el idioma del tutor por mazo. Un mazo en español en español, uno en japonés en japonés. El audio nativo multilingüe de Gemini Live cambia solo."
+        "description": "Configurás el idioma del tutor por mazo. Un mazo en español en español, uno en japonés en japonés. El modelo de voz en tiempo real cambia solo."
       },
       {
         "title": "Anki sigue siendo la fuente de verdad",
@@ -93,19 +93,19 @@
     "sectionTitle": "Cobramos lo que cuesta.",
     "lede": "Las APIs de voz cuestan plata. Lo decimos directamente porque preferimos que vos entiendas dónde va tu dinero.",
     "trial": {
-      "label": "Trial incluido",
-      "value": "10 sesiones gratis",
-      "note": "Sin tarjeta. Sin inscripción por email. Probás, y si te sirve, te suscribís."
+      "label": "Plan gratis",
+      "value": "30 minutos de voz por mes",
+      "note": "Sin tarjeta. Entrás con Google y estudiás. Si te sirve, te suscribís."
     },
     "plan": {
-      "label": "Plan único",
-      "price": "$5",
+      "label": "Engram Pro",
+      "price": "US$9,99",
       "priceSuffix": "/ mes",
-      "note": "Cap generoso de sesiones. Alcanza para unos 20 minutos diarios con margen.",
+      "note": "300 minutos de voz por mes, unos 10 minutos por día. O US$79,99 al año.",
       "features": [
-        "Tutor de audio nativo de Gemini Live",
-        "Todos los mazos de tu AnkiDroid",
-        "Todas las sesiones incluidas en el plan",
+        "Tutor de voz en tiempo real",
+        "Todos tus mazos de AnkiDroid y tus mazos de Engram",
+        "30 mazos por mes creados con IA a partir de tus apuntes",
         "Cancelás desde Play Store con un tap"
       ]
     },
@@ -129,7 +129,7 @@
       },
       {
         "question": "¿Dónde viaja mi audio?",
-        "answer": "Directo de tu teléfono a Gemini. Nuestro servidor solo genera una clave temporal para la sesión. No almacenamos audio. Podés auditarlo: el tráfico no pasa por ningún servidor nuestro."
+        "answer": "Directo de tu teléfono al modelo de voz en tiempo real de OpenAI. Nuestro servidor solo genera una clave temporal para la sesión. No almacenamos audio, y el audio nunca pasa por nuestro servidor."
       },
       {
         "question": "¿Funciona sin internet?",
@@ -145,14 +145,14 @@
       },
       {
         "question": "¿Por qué pagamos si la API la pago yo?",
-        "answer": "No la pagás vos. La suscripción de $5 incluye las sesiones, nosotros pagamos el consumo de Gemini. Por eso hay cap diario: si lo sacáramos, la API costaría más que el precio."
+        "answer": "No la pagás vos. La suscripción incluye los minutos de voz; nosotros pagamos el costo de la IA. Por eso hay un límite mensual: cada minuto de voz nos cuesta plata, y preferimos decirlo antes que esconderlo."
       }
     ]
   },
   "cta": {
     "eyebrow": "Probalo",
     "title": "Convertí el tiempo\nmuerto.",
-    "subtitle": "Bajate el APK, conectá AnkiDroid, probá 10 sesiones sin pagar. Empezá con la próxima caminata.",
+    "subtitle": "Bajate la app, conectá AnkiDroid y estudiá con 30 minutos de voz gratis por mes. Empezá con la próxima caminata.",
     "button": "Descargar APK",
     "hint": "Android 10 o superior · AnkiDroid v2.17+"
   },

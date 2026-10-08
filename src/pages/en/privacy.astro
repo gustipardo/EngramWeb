@@ -6,7 +6,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   locale="en"
   title="Privacy Policy"
   description="How Engram (Conversational Flashcards) collects, uses, and shares your information."
-  effective="June 30, 2026"
+  effective="October 8, 2026"
   selfPath="/en/privacy"
   altPath="/privacy"
 >
@@ -18,7 +18,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   </p>
 
   <div class="summary">
-    <p><strong>The short version.</strong> We use Google Sign-In to create your account, and we store your subscription and trial status. During a study session your microphone audio and the text of the cards being reviewed are sent to Google Gemini so the tutor can hear you and quiz you. We never store your audio. Payments are handled entirely by Google Play. We do not sell your data.</p>
+    <p><strong>The short version.</strong> We use Google Sign-In to create your account, and we store your plan and how many voice minutes you used this month. During a study session your microphone audio and the text of the cards being reviewed are sent to OpenAI so the tutor can hear you and quiz you, and your transcribed answer is sent to TypeSafe (Jev) to grade it. If you build a deck with AI, the request and files you choose are sent to OpenAI. We never store your audio. Payments are handled entirely by Google Play. We do not sell your data. You can delete your account in the app.</p>
   </div>
 
   <h2>1. Who we are</h2>
@@ -43,13 +43,13 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   <h3>Voice and audio</h3>
   <p>
     A study session is a live conversation. While a session is active, the app
-    captures your microphone audio and streams it in real time to the
-    <strong>Google Gemini</strong> service, which transcribes your speech,
-    evaluates your answer, and generates the tutor's spoken replies. Microphone
+    captures your microphone audio and streams it in real time to
+    <strong>OpenAI</strong> (Realtime API), which transcribes your speech and
+    generates the tutor's spoken replies. Microphone
     capture happens <strong>only during an active session</strong> and stops when
     the session ends. <strong>We do not record or store your audio on our
     servers</strong>, and there is no Engram server in the audio path. The audio
-    is processed by Google under its own terms (see "Third-party services").
+    is processed by OpenAI under its own terms (see "Third-party services").
   </p>
 
   <h3>Flashcard content from AnkiDroid</h3>
@@ -58,20 +58,41 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
     AnkiDroid through AnkiDroid's official API. This includes the
     front and back text of due cards and their scheduling information. The app
     reads this locally on your device to run the session, and the text of the
-    cards under review is sent to Google Gemini during the session so the tutor
-    can ask and grade them. When you answer, the app writes the review result
+    cards under review is sent to OpenAI during the session so the tutor can ask
+    them, and to TypeSafe (Jev) together with the transcript of your answer so
+    it can be graded. When you answer, the app writes the review result
     (the grade) back to your local AnkiDroid collection. We do not copy your deck
     library to our servers, and we do not sync to AnkiWeb (that stays a separate,
     user-initiated action inside AnkiDroid).
   </p>
 
-  <h3>Subscription and trial data</h3>
+  <h3>Decks you create with AI</h3>
   <p>
-    We store a small record tied to your account that tracks your free-trial
-    start date, how many study sessions you have used, and your subscription
-    status and plan. This is held in Google Cloud Firestore and is what gates
-    access after the trial ends. When you subscribe, Google Play sends us a
+    When you use "Create with AI", the request you type, your answers to its
+    questions, and any files you attach (PDF, slides, documents, images) are
+    sent through our server to <strong>OpenAI</strong> to write the deck, and a
+    summary of the request is sent to <strong>TypeSafe (Jev)</strong> to pick
+    the deck's settings. We ask OpenAI not to store these requests, and we do
+    not keep your files. The resulting deck is saved only on your device.
+  </p>
+
+  <h3>Plan and usage data</h3>
+  <p>
+    We store a small record tied to your account with your plan, your
+    subscription status, how many voice minutes and AI decks you used each
+    month, how many sessions you started, and the number of AI tokens each
+    feature used per day. These are counts only: no audio, transcripts or card
+    text. This is held in Google Cloud Firestore and is what enforces your
+    plan's monthly allowance. When you subscribe, Google Play sends us a
     purchase token so we can verify and unlock your subscription.
+  </p>
+
+  <h3>Feedback you send</h3>
+  <p>
+    If you send feedback from the app or rate a session, we store your message
+    or rating with your account identifier and email address, the app
+    version, your device's Android version and language, and the deck name
+    when it is about a session, so we can reply and fix problems.
   </p>
 
   <h3>Usage analytics</h3>
@@ -87,15 +108,17 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   <p>
     Our service providers (Google Firebase and Google Play) automatically receive
     standard technical data needed to deliver and secure the app, such as app
-    version, device and operating-system information, and basic diagnostic or
-    crash data.
+    version, device and operating-system information. When the app crashes or
+    hits an error, <strong>Firebase Crashlytics</strong> receives a crash report
+    (the error, the app's state at that moment, device model and OS version)
+    linked to your account identifier.
   </p>
 
   <h2>3. How we use your information</h2>
   <ul>
     <li>To provide the core feature: a real-time voice tutor over your AnkiDroid decks.</li>
     <li>To create your account, sign you in, and keep your access in sync across devices.</li>
-    <li>To run the free trial and to verify and manage subscriptions.</li>
+    <li>To apply your plan's monthly voice minutes and AI decks, and to verify and manage subscriptions.</li>
     <li>To understand usage, diagnose problems, and improve the app.</li>
     <li>To respond to your support requests.</li>
     <li>To comply with legal obligations and enforce our Terms of Use.</li>
@@ -107,8 +130,9 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
     data only as needed to provide its part of the service:
   </p>
   <ul>
-    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions):</strong> account sign-in, subscription and trial records, and backend logic.</li>
-    <li><strong>Google Gemini:</strong> real-time processing of your session audio and the card text under review to power the AI tutor.</li>
+    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions, Crashlytics):</strong> account sign-in, plan and usage records, backend logic, and crash reports.</li>
+    <li><strong>OpenAI:</strong> real-time processing of your session audio and the card text under review to power the AI tutor, and writing decks you create with AI.</li>
+    <li><strong>TypeSafe (Jev):</strong> grading your transcribed answers against the card, and choosing settings for decks you create with AI.</li>
     <li><strong>Google Play Billing:</strong> processes all subscription payments. Engram never receives or stores your payment-card details.</li>
     <li><strong>PostHog:</strong> product usage analytics.</li>
   </ul>
@@ -121,10 +145,11 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   <h2>5. Data retention</h2>
   <p>
     Session audio is not retained by us; it is processed transiently and
-    discarded. Your account record and subscription data are kept while your
-    account exists so the service can function. Analytics events are retained for
-    a limited period for trend analysis. When you ask us to delete your account,
-    we delete the account record we hold (see "Your rights").
+    discarded. Your account record, plan and usage counts are kept while your
+    account exists so the service can function. Feedback is kept until it has
+    been handled. Analytics events and crash reports are retained for a limited
+    period. When you delete your account, we delete your account record, usage
+    counts, feedback and purchase records right away (see "Your rights").
   </p>
 
   <h2>6. Security</h2>
@@ -138,7 +163,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 
   <h2>7. International transfers</h2>
   <p>
-    Our providers (Google and PostHog) operate globally, so your information may
+    Our providers (Google, OpenAI, TypeSafe and PostHog) operate globally, so your information may
     be processed on servers located outside your country of residence, including
     in the United States and the European Union. Where required, these transfers
     rely on the safeguards offered by those providers.
@@ -148,9 +173,12 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   <p>
     Depending on where you live (for example under Argentina's Ley 25.326 or the
     EU GDPR), you may have the right to access, correct, export, or delete your
-    personal data, and to object to or restrict certain processing. To exercise
-    any of these, or to request deletion of your account and the data tied to it,
-    email <a href="mailto:support@engramcards.com">support@engramcards.com</a>.
+    personal data, and to object to or restrict certain processing. You can
+    delete your account and the data tied to it at any time in the app
+    (Account → Delete account), or by following the steps on our
+    <a href="/en/delete-account">account deletion page</a>. To exercise any
+    other right, email
+    <a href="mailto:support@engramcards.com">support@engramcards.com</a>.
     You can also stop the app's data collection at any time by signing out,
     revoking the AnkiDroid or microphone permission in Android settings, or
     uninstalling the app. You manage or cancel your subscription directly in
