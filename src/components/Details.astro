@@ -1,0 +1,43 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale).details;
+---
+
+<section class="rule-t py-16 sm:py-24" aria-labelledby="details-h">
+  <div class="wrap">
+    <SectionHead id="details-h" eyebrow={i.eyebrow} title={i.title} />
+    <ul class="mt-12 grid gap-x-12 gap-y-10 md:grid-cols-2">
+      {
+        i.items.map((item, n) => (
+          <li class="reveal detail" style={`transition-delay:${(n % 2) * 80}ms`}>
+            <span class="disp text-[22px]" aria-hidden="true">
+              {String(n + 1).padStart(2, '0')}
+            </span>
+            <h3 class="mt-3 text-[21px] font-semibold leading-snug">{item.title}</h3>
+            <p class="mt-2 max-w-[32rem] text-[16px] leading-relaxed" style="color:var(--mesa-ink2)">
+              {item.body}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .detail {
+    border-top: 2px solid var(--mesa-ink);
+    padding-top: 16px;
+  }
+  .detail .disp {
+    color: var(--mesa-back);
+  }
+</style>

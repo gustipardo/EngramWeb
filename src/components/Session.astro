@@ -1,0 +1,114 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale).session;
+// what each beat looks like in the app: tutor bars, your bars, the grade, the answer read back
+const cue = ['tutor', 'you', 'grade', 'tutor'] as const;
+---
+
+<section id="session" class="scroll-mt-16 py-16 sm:py-24" aria-labelledby="session-h">
+  <div class="wrap">
+    <SectionHead id="session-h" eyebrow={i.eyebrow} title={i.title} lede={i.lede} />
+
+    <ol class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        i.steps.map((s, n) => (
+          <li class="reveal drop" style={`transition-delay:${n * 70}ms`}>
+            <div class="icard step">
+              <span class="idx" style="--is:22px">
+                {n + 1}
+                <i />
+              </span>
+              <span class="idx br" style="--is:22px">
+                {n + 1}
+                <i />
+              </span>
+              <div class="step-cue" aria-hidden="true">
+                {cue[n] === 'grade' ? (
+                  <span class="stamp stamp-good" style="--ss:13px">
+                    GOOD
+                  </span>
+                ) : (
+                  <span class:list={['bars still', cue[n] === 'you' && 'you']}>
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                )}
+              </div>
+              <h3 class="mt-5 text-[19px] font-semibold leading-snug">{s.title}</h3>
+              <p class="mt-2 text-[15px] leading-relaxed" style="color:var(--mesa-card-ink2)">
+                {s.body}
+              </p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+
+    <div class="commands reveal mt-16 sm:mt-20">
+      <h3 class="disp text-[clamp(26px,3vw,34px)]">{i.commandsTitle}</h3>
+      <p class="mt-3 text-[16px]" style="color:var(--mesa-ink2)">{i.commandsLede}</p>
+      <ul class="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          i.commands.map((c) => (
+            <li class="panel px-4 py-3.5">
+              <p class="text-[16px] font-semibold">“{c.say}”</p>
+              <p class="mt-1 text-[13.5px] leading-snug" style="color:var(--mesa-ink2)">
+                {c.does}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .step {
+    height: 100%;
+    min-height: 250px;
+    padding: 56px 22px 44px;
+  }
+  .step-cue {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+  }
+  .bars.still {
+    height: 26px;
+    gap: 3px;
+  }
+  .bars.still i {
+    width: 5px;
+    animation: none;
+  }
+  .bars.still i:nth-child(1) {
+    height: 10px;
+  }
+  .bars.still i:nth-child(2) {
+    height: 22px;
+  }
+  .bars.still i:nth-child(3) {
+    height: 14px;
+  }
+  .bars.still i:nth-child(4) {
+    height: 26px;
+  }
+  .bars.still i:nth-child(5) {
+    height: 8px;
+  }
+</style>

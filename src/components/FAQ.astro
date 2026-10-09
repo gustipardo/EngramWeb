@@ -1,39 +1,69 @@
 ---
 import type { Locale } from '../i18n';
 import { t } from '../i18n';
+import PxIcon from './PxIcon.astro';
+import SectionHead from './SectionHead.astro';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const i = t(locale);
+const i = t(locale).faq;
+const privacy = locale === 'es' ? '/privacy' : '/en/privacy';
 ---
 
-<section id="faq" class="border-b border-paper-300 bg-paper-200/50 py-24 sm:py-32 dark:border-navy-800 dark:bg-navy-850/30">
-  <div class="mx-auto max-w-4xl px-4 sm:px-6">
-    <div class="mb-14 max-w-2xl">
-      <p class="font-mono text-xs uppercase tracking-[0.18em] text-amber-700 dark:text-amber-500/80">{i.faq.eyebrow}</p>
-      <h2 class="mt-4 font-display text-display-lg font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_72]">
-        {i.faq.sectionTitle}
-      </h2>
+<section id="faq" class="scroll-mt-16 rule-t py-16 sm:py-24" aria-labelledby="faq-h">
+  <div class="wrap grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.6fr)]">
+    <div>
+      <SectionHead id="faq-h" eyebrow={i.eyebrow} title={i.title} />
+      <a href={privacy} class="reveal mt-6 inline-flex items-center gap-2 text-[15px] font-medium underline underline-offset-4">
+        {i.privacyLink}
+        <PxIcon name="arrow" size={13} />
+      </a>
     </div>
-
-    <div class="divide-y divide-paper-300 border-y border-paper-300 dark:divide-navy-800 dark:border-navy-800">
+    <div class="reveal faq-list">
       {
-        i.faq.items.map((item) => (
-          <details class="group py-6">
-            <summary class="flex cursor-pointer list-none items-start justify-between gap-6 text-left">
-              <span class="font-display text-lg font-medium text-navy-900 dark:text-paper-100 [font-variation-settings:'opsz'_36]">{item.question}</span>
-              <svg class="mt-1.5 h-5 w-5 shrink-0 text-amber-700/70 transition-transform group-open:rotate-45 dark:text-amber-500/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M12 5v14" />
-                <path d="M5 12h14" />
-              </svg>
+        i.items.map((item) => (
+          <details class="faq-item group">
+            <summary>
+              <span>{item.question}</span>
+              <PxIcon name="plus" size={14} class="faq-plus" />
             </summary>
-            <p class="mt-4 max-w-copy text-base leading-relaxed text-navy-500 dark:text-paper-100/70">{item.answer}</p>
+            <p class="max-w-[40rem] pb-6 text-[16px] leading-relaxed" style="color:var(--mesa-ink2)">
+              {item.answer}
+            </p>
           </details>
         ))
       }
     </div>
   </div>
 </section>
+
+<style>
+  .faq-list {
+    border-top: 2px solid var(--mesa-ink);
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--mesa-rule);
+  }
+  .faq-item summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 20px 0;
+    cursor: pointer;
+    font: 600 18px/1.35 var(--ui);
+  }
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item :global(.faq-plus) {
+    transition: transform 0.25s var(--ease);
+  }
+  .faq-item[open] :global(.faq-plus) {
+    transform: rotate(45deg);
+  }
+</style>

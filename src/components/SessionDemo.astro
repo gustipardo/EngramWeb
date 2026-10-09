@@ -1,0 +1,245 @@
+---
+/**
+ * The hero's session loop, built from the app's own parts (ART-STYLE §10): a card is
+ * dealt off the deck, the tutor asks (level bars in the card colour), you answer
+ * (bars in green, your words below), the back shows when you finish, the stamp slams,
+ * and the card goes to your pile (GOOD) or back under the deck (AGAIN).
+ * Timeline in the <script> below; reduced motion shows the graded first card, still.
+ */
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+import Archie from './Archie.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale).demo;
+const first = d.cards[0];
+const SEGMENTS = 8;
+---
+
+<figure
+  class="demo relative mx-auto w-full max-w-[460px]"
+  data-demo
+  data-cards={JSON.stringify(d.cards)}
+  data-phases={JSON.stringify(d.phase)}
+>
+  <figcaption class="sr-only">{d.label}</figcaption>
+
+  <div class="demo-stage" aria-hidden="true">
+    <!-- progress: deck name + one segment per card in today's stack -->
+    <div class="flex items-baseline justify-between gap-3">
+      <span class="font-ui text-[15px] font-semibold" data-deck>{first.deck}</span>
+      <span class="font-mono text-xs" style="color:var(--mesa-on-felt2)">
+        <b class="disp text-[17px] font-black" style="color:var(--mesa-on-felt)" data-known-n>1</b> / {SEGMENTS}
+      </span>
+    </div>
+    <div class="demo-segs mt-2" data-segs>
+      {Array.from({ length: SEGMENTS }, (_, n) => <i class={n < 1 ? 'on' : ''} />)}
+    </div>
+
+    <!-- the table: deck (with Archie) on the left, your pile on the right -->
+    <div class="demo-piles mt-6">
+      <div class="flex items-end gap-3">
+        <Archie width={38} class="demo-archie" />
+        <div class="demo-deck" data-deck-pile>
+          <span class="cardback drop"></span><span class="cardback drop"></span><span class="cardback drop"></span>
+        </div>
+        <div class="leading-none">
+          <b class="disp block text-[26px]" data-left-n>7</b>
+          <span class="font-mono text-[11px]" style="color:var(--mesa-on-felt2)">{d.left}</span>
+        </div>
+      </div>
+      <div class="flex items-end gap-3">
+        <div class="text-right leading-none">
+          <b class="disp block text-[26px]" data-known-pile-n>1</b>
+          <span class="font-mono text-[11px]" style="color:var(--mesa-on-felt2)">{d.known}</span>
+        </div>
+        <div class="demo-known" data-known-pile>
+          <span class="icard drop"></span>
+          <span class="icard drop"><span class="idx" style="--is:11px;top:5px;left:6px">1<i></i></span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- the dealt card -->
+    <div class="demo-slot">
+      <div class="demo-card" data-card>
+        <div class="demo-flip" data-flip>
+          <div class="demo-face demo-front icard">
+            <span class="idx" data-idx-a>1<i></i></span>
+            <span class="idx br" data-idx-b>1<i></i></span>
+            <p class="demo-q" data-q>{first.q}</p>
+            <div class="demo-ans" data-ans>
+              <span class="font-mono text-[10px] font-bold uppercase tracking-[0.12em]">{d.answer}</span>
+              <span class="mt-1 block" data-a>{first.a}</span>
+            </div>
+            <span class="demo-stamp" data-stamp>
+              <span class="stamp stamp-good">GOOD</span>
+            </span>
+          </div>
+          <div class="demo-face demo-back cardback"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- who is speaking, then what you said -->
+    <div class="demo-who">
+      <div class="flex items-end gap-3.5">
+        <span class="bars" data-bars><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="dots3 hidden" data-dots><i></i><i></i><i></i></span>
+        <b class="font-ui text-[18px] font-semibold leading-none" data-phase>{d.phase.feedback}</b>
+      </div>
+      <p class="demo-said" data-said>
+        <span class="font-semibold" style="color:var(--mesa-on-felt)">{d.you}:</span>
+        <span data-said-text>“{first.said}”</span>
+      </p>
+    </div>
+  </div>
+
+  <button type="button" class="demo-pause btn btn-o btn-sm" data-pause data-play-label={d.play} data-pause-label={d.pause} hidden>
+    {d.pause}
+  </button>
+</figure>
+
+<script>
+  import { runDemo } from '../scripts/demo';
+  document.querySelectorAll<HTMLElement>('[data-demo]').forEach(runDemo);
+</script>
+
+<style>
+  .demo-stage {
+    --cw: min(300px, 74vw);
+    position: relative;
+  }
+  .demo-segs {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 4px;
+  }
+  .demo-segs i {
+    height: 5px;
+    background: color-mix(in srgb, var(--mesa-on-felt) 16%, transparent);
+    transition: background-color 0.3s var(--ease);
+  }
+  .demo-segs i.on {
+    background: var(--mesa-back);
+  }
+  .demo-piles {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    position: relative;
+    z-index: 3;
+  }
+  .demo-deck,
+  .demo-known {
+    position: relative;
+    width: 52px;
+    height: 72px;
+  }
+  .demo-deck > span,
+  .demo-known > span {
+    position: absolute;
+    inset: 0;
+  }
+  .demo-deck > span:nth-child(1) {
+    transform: translate(-3px, 3px) rotate(-4deg);
+  }
+  .demo-deck > span:nth-child(2) {
+    transform: translate(-1px, 1px) rotate(-1.5deg);
+  }
+  .demo-known > span {
+    --s: 4px;
+    --h: 2px;
+  }
+  .demo-known > span:nth-child(1) {
+    transform: rotate(5deg);
+  }
+  .demo-known > span:nth-child(2) {
+    transform: rotate(-2deg);
+  }
+  .demo-slot {
+    display: grid;
+    place-items: center;
+    margin-top: 18px;
+    perspective: 900px;
+    position: relative;
+    z-index: 2;
+  }
+  .demo-card {
+    width: var(--cw);
+    height: calc(var(--cw) * 0.96);
+    filter: drop-shadow(4px 4px 0 var(--shadow));
+  }
+  .demo-flip {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+  .demo-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .demo-back {
+    transform: rotateY(180deg);
+  }
+  .demo-front {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 28px 30px;
+    text-align: center;
+  }
+  .demo-q {
+    font: 600 clamp(18px, 4.6vw, 21px) / 1.25 var(--ui);
+    text-wrap: balance;
+  }
+  .demo-ans {
+    margin-top: 14px;
+    font: 500 14.5px/1.35 var(--ui);
+    color: var(--mesa-card-ink2);
+    transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .demo-ans.off {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  .demo-stamp {
+    margin-top: 16px;
+    min-height: 31px;
+  }
+  .demo-stamp.slam .stamp {
+    animation: slam 0.3s var(--ease) both;
+  }
+  .demo-who {
+    margin-top: 24px;
+    min-height: 72px;
+    padding-right: 92px;
+  }
+  .demo-said {
+    display: block;
+    margin-top: 10px;
+    font: 400 13px/1.35 var(--mono);
+    color: var(--mesa-on-felt2);
+    min-height: 1.35em;
+    transition: opacity 0.3s var(--ease);
+  }
+  .demo-said.off {
+    opacity: 0;
+  }
+  .demo-pause {
+    position: absolute;
+    right: 0;
+    bottom: 28px;
+  }
+  .demo.paused .bars i,
+  .demo.paused .dots3 i {
+    animation-play-state: paused;
+  }
+</style>

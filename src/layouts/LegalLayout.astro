@@ -1,5 +1,9 @@
 ---
 import type { Locale } from '../i18n';
+import Head from '../components/Head.astro';
+import PixelLogo from '../components/PixelLogo.astro';
+import PxIcon from '../components/PxIcon.astro';
+import { SITE_URL } from '../lib/site';
 
 interface Props {
   locale: Locale;
@@ -17,177 +21,144 @@ interface Props {
 
 const { locale, title, description, effective, altPath, selfPath } = Astro.props;
 const altLocale = locale === 'es' ? 'en' : 'es';
-const siteUrl = 'https://engramcards.com';
 const home = locale === 'es' ? '/' : '/en/';
 const backLabel = locale === 'es' ? 'Volver a Engram' : 'Back to Engram';
 const updatedLabel = locale === 'es' ? 'Vigente desde' : 'Effective';
+const nightLabels =
+  locale === 'es'
+    ? { night: 'Cambiar a la mesa de noche', day: 'Cambiar a la mesa de día' }
+    : { night: 'Switch to the night table', day: 'Switch to the day table' };
+const trademark =
+  locale === 'es'
+    ? 'Anki y AnkiDroid son marcas de sus respectivos dueños. Engram es un producto independiente, sin relación ni aval de ellos.'
+    : 'Anki and AnkiDroid are trademarks of their respective owners. Engram is an independent product and is not affiliated with or endorsed by them.';
 ---
 
 <!doctype html>
-<html lang={locale}>
+<html lang={locale} class="no-js" data-pal="stone" data-theme="gold" data-night="0">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
+    <Head title={`${title} · Engram`} description={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#FAF7F1" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0B1020" media="(prefers-color-scheme: dark)" />
-
-    <!-- Theme-init: runs before body paints to prevent FOUC. Mirrors Layout.astro. -->
-    <script is:inline>
-      (function () {
-        try {
-          if (localStorage.getItem('engram-theme') === 'dark') {
-            document.documentElement.classList.add('dark');
-          }
-        } catch (e) {}
-      })();
-    </script>
-
-    <title>{title} · Engram</title>
-
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="canonical" href={`${siteUrl}${selfPath}`} />
-    <link rel="alternate" hreflang={locale} href={`${siteUrl}${selfPath}`} />
-    <link rel="alternate" hreflang={altLocale} href={`${siteUrl}${altPath}`} />
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-    />
+    <link rel="canonical" href={`${SITE_URL}${selfPath}`} />
+    <link rel="alternate" hreflang={locale} href={`${SITE_URL}${selfPath}`} />
+    <link rel="alternate" hreflang={altLocale} href={`${SITE_URL}${altPath}`} />
   </head>
 
-  <body
-    class="min-h-screen bg-paper-100 font-body text-navy-900 antialiased transition-colors duration-300 selection:bg-amber-500/30 selection:text-navy-900 dark:bg-navy-900 dark:text-paper-100 dark:selection:text-paper-50"
-  >
-    <div class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-20">
-      <a
-        href={home}
-        class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-navy-400 transition-colors hover:text-amber-700 dark:text-paper-100/40 dark:hover:text-amber-500"
-      >
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M15 18l-6-6 6-6" />
-        </svg>
+  <body>
+    <header class="rule-b">
+      <div class="mx-auto flex h-16 max-w-3xl items-center justify-between px-5 sm:px-8">
+        <a href={home} class="flex items-center gap-2.5">
+          <PixelLogo n={24} width={28} />
+          <span class="wordmark text-[22px] leading-none">Engram</span>
+        </a>
+        <button
+          type="button"
+          class="btn btn-o btn-sm w-9 px-0"
+          data-night-toggle
+          data-label-day={nightLabels.day}
+          data-label-night={nightLabels.night}
+          aria-label={nightLabels.night}
+        >
+          <PxIcon name="moon" class="when-day" />
+          <PxIcon name="sun" class="when-night" />
+        </button>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-5 py-12 sm:px-8 sm:py-16">
+      <a href={home} class="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.08em]" style="color:var(--mesa-ink3)">
+        <span class="inline-block rotate-180"><PxIcon name="arrow" size={12} /></span>
         {backLabel}
       </a>
 
-      <header class="mt-8 border-b border-paper-300 pb-8 dark:border-navy-800">
-        <h1 class="font-display text-display-md font-medium text-navy-900 dark:text-paper-100">
-          {title}
-        </h1>
-        <p class="mt-3 font-mono text-xs uppercase tracking-widest text-navy-400 dark:text-paper-100/40">
-          {updatedLabel} {effective}
-        </p>
-      </header>
+      <div class="mt-8 pb-8 rule-b">
+        <h1 class="disp text-[clamp(32px,5vw,48px)]">{title}</h1>
+        <p class="kicker mt-4">{updatedLabel} {effective}</p>
+      </div>
 
       <article class="legal-prose mt-10">
         <slot />
       </article>
+    </main>
 
-      <footer class="mt-16 border-t border-paper-300 pt-8 font-mono text-xs text-navy-400 dark:border-navy-800 dark:text-paper-100/40">
+    <footer class="mx-auto max-w-3xl px-5 pb-12 sm:px-8">
+      <div class="rule-t grid gap-1 pt-8 font-mono text-[11.5px] leading-relaxed" style="color:var(--mesa-ink3)">
         <p>&copy; {new Date().getFullYear()} Engram · Tobías Pardo · UTN Facultad Regional Delta</p>
-        <p class="mt-1">Anki and AnkiDroid are trademarks of their respective owners. Engram is an independent product and is not affiliated with or endorsed by them.</p>
-      </footer>
-    </div>
+        <p>{trademark}</p>
+      </div>
+    </footer>
+
+    <script>
+      import '../scripts/mesa';
+    </script>
 
     <style is:global>
       .legal-prose {
-        font-size: 0.975rem;
+        font-size: 16px;
         line-height: 1.75;
-        color: #24304a;
-      }
-      .dark .legal-prose {
-        color: rgba(250, 247, 241, 0.82);
+        color: var(--mesa-ink2);
       }
       .legal-prose h2 {
-        font-family: 'Fraunces', Georgia, serif;
-        font-size: 1.35rem;
-        font-weight: 500;
+        font: 700 21px/1.3 var(--ui);
         letter-spacing: -0.01em;
-        margin-top: 2.75rem;
-        margin-bottom: 0.85rem;
-        color: #0b1020;
-      }
-      .dark .legal-prose h2 {
-        color: #faf7f1;
+        margin-top: 2.6rem;
+        margin-bottom: 0.8rem;
+        color: var(--mesa-ink);
       }
       .legal-prose h3 {
-        font-family: 'Inter', system-ui, sans-serif;
-        font-size: 1.02rem;
-        font-weight: 600;
-        margin-top: 1.85rem;
+        font: 600 17px/1.4 var(--ui);
+        margin-top: 1.8rem;
         margin-bottom: 0.5rem;
-        color: #11182a;
-      }
-      .dark .legal-prose h3 {
-        color: rgba(250, 247, 241, 0.95);
+        color: var(--mesa-ink);
       }
       .legal-prose p {
-        margin-top: 0.85rem;
-        margin-bottom: 0.85rem;
+        margin-block: 0.85rem;
+      }
+      .legal-prose ul,
+      .legal-prose ol {
+        padding-left: 1.4rem;
+        margin-block: 0.75rem 0.95rem;
       }
       .legal-prose ul {
-        list-style: disc;
-        padding-left: 1.4rem;
-        margin-top: 0.75rem;
-        margin-bottom: 0.95rem;
+        list-style: square;
+      }
+      .legal-prose ol {
+        list-style: decimal;
       }
       .legal-prose li {
-        margin-top: 0.35rem;
-        margin-bottom: 0.35rem;
+        margin-block: 0.35rem;
       }
       .legal-prose li::marker {
-        color: #b87826;
-      }
-      .dark .legal-prose li::marker {
-        color: #e4a13f;
+        color: var(--mesa-back);
       }
       .legal-prose strong {
         font-weight: 600;
-        color: #0b1020;
-      }
-      .dark .legal-prose strong {
-        color: #faf7f1;
+        color: var(--mesa-ink);
       }
       .legal-prose a {
-        color: #b87826;
+        color: var(--mesa-ink);
         text-decoration: underline;
-        text-underline-offset: 2px;
-      }
-      .dark .legal-prose a {
-        color: #e4a13f;
-      }
-      .legal-prose a:hover {
-        color: #8f5c1d;
-      }
-      .dark .legal-prose a:hover {
-        color: #f1ae4a;
+        text-decoration-color: var(--mesa-back);
+        text-decoration-thickness: 2px;
+        text-underline-offset: 3px;
       }
       .legal-prose .lead {
-        font-size: 1.05rem;
+        font-size: 17.5px;
         line-height: 1.7;
-        color: #3b4668;
-      }
-      .dark .legal-prose .lead {
-        color: rgba(250, 247, 241, 0.7);
+        color: var(--mesa-ink);
       }
       .legal-prose .summary {
+        --s: 6px;
+        --h: 3px;
+        clip-path: var(--notch);
         margin-top: 1.5rem;
-        border: 1px solid #ede8db;
-        border-radius: 0.75rem;
-        background: #fefcf7;
+        background: var(--mesa-surface);
+        box-shadow: inset 0 0 0 1px var(--mesa-rule);
         padding: 1.1rem 1.25rem;
-      }
-      .dark .legal-prose .summary {
-        border-color: #1a2339;
-        background: #11182a;
       }
       .legal-prose .summary p {
         margin: 0;
-        font-size: 0.9rem;
+        font-size: 15px;
       }
       .legal-prose .summary p + p {
         margin-top: 0.5rem;

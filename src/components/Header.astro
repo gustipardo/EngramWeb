@@ -1,6 +1,8 @@
 ---
 import type { Locale } from '../i18n';
 import { t } from '../i18n';
+import PixelLogo from './PixelLogo.astro';
+import PxIcon from './PxIcon.astro';
 
 interface Props {
   locale: Locale;
@@ -8,73 +10,104 @@ interface Props {
 
 const { locale } = Astro.props;
 const i = t(locale);
+const home = locale === 'es' ? '/' : '/en/';
 const altPath = locale === 'es' ? '/en/' : '/';
-const altLabel = locale === 'es' ? 'EN' : 'ES';
+const altLang = locale === 'es' ? 'en' : 'es';
+const links = [
+  { href: '#session', label: i.nav.session },
+  { href: '#decks', label: i.nav.decks },
+  { href: '#archie', label: i.nav.archie },
+  { href: '#pricing', label: i.nav.pricing },
+  { href: '#faq', label: i.nav.faq },
+];
 ---
 
-<header class="fixed inset-x-0 top-0 z-50 border-b border-paper-300/70 bg-paper-100/80 backdrop-blur-md transition-colors dark:border-navy-800/60 dark:bg-navy-900/80">
-  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-    <a
-      href={locale === 'es' ? '/' : '/en/'}
-      class="group flex items-center gap-2.5"
-      aria-label="Engram · Conversational Flashcards"
-    >
-      <!-- Light-theme mark (deep amber on paper) -->
-      <svg viewBox="0 0 200 200" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="shrink-0 transition-transform group-hover:-translate-y-0.5 dark:hidden">
-        <rect x="28" y="30" width="108" height="140" rx="11.6" fill="#B87826"/>
-        <rect x="51.76" y="68.8" width="60.48" height="6.4" rx="3.2" fill="#FAF7F1"/>
-        <rect x="51.76" y="113.6" width="60.48" height="6.4" rx="3.2" fill="#FAF7F1" opacity=".55"/>
-        <line x1="150" y1="81" x2="173.12" y2="68.71" stroke="#B87826" stroke-width="7.6" stroke-linecap="round" opacity="0.5"/>
-        <line x1="150" y1="100" x2="183.88" y2="100" stroke="#B87826" stroke-width="7.6" stroke-linecap="round" opacity="0.9"/>
-        <line x1="150" y1="119" x2="173.12" y2="131.29" stroke="#B87826" stroke-width="7.6" stroke-linecap="round" opacity="0.5"/>
-      </svg>
-      <!-- Dark-theme mark (bright amber on navy) -->
-      <svg viewBox="0 0 200 200" width="28" height="28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="hidden shrink-0 transition-transform group-hover:-translate-y-0.5 dark:block">
-        <rect x="28" y="30" width="108" height="140" rx="11.6" fill="#E4A13F"/>
-        <rect x="51.76" y="68.8" width="60.48" height="6.4" rx="3.2" fill="#0B1020"/>
-        <rect x="51.76" y="113.6" width="60.48" height="6.4" rx="3.2" fill="#0B1020" opacity=".55"/>
-        <line x1="150" y1="81" x2="173.12" y2="68.71" stroke="#E4A13F" stroke-width="7.6" stroke-linecap="round" opacity="0.5"/>
-        <line x1="150" y1="100" x2="183.88" y2="100" stroke="#E4A13F" stroke-width="7.6" stroke-linecap="round" opacity="0.9"/>
-        <line x1="150" y1="119" x2="173.12" y2="131.29" stroke="#E4A13F" stroke-width="7.6" stroke-linecap="round" opacity="0.5"/>
-      </svg>
-      <span class="font-display text-xl font-medium tracking-tight text-navy-900 dark:text-paper-100">Engram</span>
+<header class="site-header sticky top-0 z-50">
+  <nav class="wrap flex h-16 items-center justify-between gap-4">
+    <a href={home} class="flex items-center gap-2.5" aria-label={i.nav.home}>
+      <PixelLogo n={24} width={30} />
+      <span class="wordmark text-[23px] leading-none">Engram</span>
     </a>
 
-    <div class="hidden items-center gap-8 md:flex">
-      <a href="#features" class="text-sm text-navy-500 transition-colors hover:text-navy-900 dark:text-paper-100/70 dark:hover:text-paper-100">{i.nav.features}</a>
-      <a href="#how-it-works" class="text-sm text-navy-500 transition-colors hover:text-navy-900 dark:text-paper-100/70 dark:hover:text-paper-100">{i.nav.howItWorks}</a>
-      <a href="#pricing" class="text-sm text-navy-500 transition-colors hover:text-navy-900 dark:text-paper-100/70 dark:hover:text-paper-100">{i.nav.pricing}</a>
-      <a href="#faq" class="text-sm text-navy-500 transition-colors hover:text-navy-900 dark:text-paper-100/70 dark:hover:text-paper-100">{i.nav.faq}</a>
-      <a href={altPath} class="font-mono text-xs uppercase tracking-widest text-navy-400 transition-colors hover:text-amber-700 dark:text-paper-100/50 dark:hover:text-amber-500">{altLabel}</a>
-      <a
-        href="#download"
-        class="rounded-md bg-amber-600 px-4 py-2 text-sm font-semibold text-paper-100 transition-colors hover:bg-amber-700 dark:bg-amber-500 dark:text-navy-900 dark:hover:bg-amber-300"
-      >
-        {i.nav.download}
-      </a>
-    </div>
+    <ul class="hidden items-center gap-7 lg:flex">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class="nav-link">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
 
-    <div class="flex items-center gap-3 md:hidden">
-      <a href={altPath} class="font-mono text-xs uppercase tracking-widest text-navy-500 dark:text-paper-100/60">{altLabel}</a>
-      <button id="mobile-menu-btn" class="p-2 text-navy-900 dark:text-paper-100" aria-label="Menu">
-        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        class="btn btn-o btn-sm w-9 px-0"
+        data-night-toggle
+        data-label-day={i.nav.toDay}
+        data-label-night={i.nav.toNight}
+        aria-label={i.nav.toNight}
+      >
+        <PxIcon name="moon" class="when-day" />
+        <PxIcon name="sun" class="when-night" />
+      </button>
+      <a href={altPath} hreflang={altLang} lang={altLang} class="btn btn-o btn-sm font-mono text-[13px]" aria-label={i.nav.otherLang}>
+        {i.nav.otherLangShort}
+      </a>
+      <a href="#download" class="btn btn-back btn-sm hidden sm:inline-flex">{i.nav.cta}</a>
+      <button type="button" class="btn btn-o btn-sm w-9 px-0 lg:hidden" data-menu-btn aria-expanded="false" aria-controls="site-menu" aria-label={i.nav.menu}>
+        <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
       </button>
     </div>
   </nav>
 
-  <div id="mobile-menu" class="hidden border-b border-paper-300/70 bg-paper-100/95 px-4 pb-4 md:hidden dark:border-navy-800/60 dark:bg-navy-900/95">
-    <a href="#features" class="block py-2 text-navy-700 dark:text-paper-100/80">{i.nav.features}</a>
-    <a href="#how-it-works" class="block py-2 text-navy-700 dark:text-paper-100/80">{i.nav.howItWorks}</a>
-    <a href="#pricing" class="block py-2 text-navy-700 dark:text-paper-100/80">{i.nav.pricing}</a>
-    <a href="#faq" class="block py-2 text-navy-700 dark:text-paper-100/80">{i.nav.faq}</a>
-    <a href="#download" class="mt-2 block rounded-md bg-amber-600 px-4 py-2 text-center font-semibold text-paper-100 dark:bg-amber-500 dark:text-navy-900">{i.nav.download}</a>
+  <div id="site-menu" class="site-menu lg:hidden" data-menu hidden>
+    <ul class="wrap grid gap-1 py-3">
+      {
+        links.map((l) => (
+          <li>
+            <a href={l.href} class="block py-2.5 text-[17px] font-medium">
+              {l.label}
+            </a>
+          </li>
+        ))
+      }
+      <li class="pt-2 sm:hidden">
+        <a href="#download" class="btn btn-back w-full">{i.nav.cta}</a>
+      </li>
+    </ul>
   </div>
 </header>
 
-<script>
-  const btn = document.getElementById('mobile-menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
-</script>
+<style>
+  .site-header {
+    background: color-mix(in srgb, var(--mesa-paper) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--mesa-rule);
+  }
+  .nav-link {
+    font: 500 14.5px var(--ui);
+    color: var(--mesa-ink2);
+    transition: color 0.15s var(--ease);
+  }
+  .nav-link:hover {
+    color: var(--mesa-ink);
+  }
+  .burger {
+    display: grid;
+    gap: 3px;
+    width: 14px;
+  }
+  .burger i {
+    display: block;
+    height: 2px;
+    background: currentColor;
+  }
+  .site-menu {
+    border-top: 1px solid var(--mesa-rule);
+    background: var(--mesa-paper);
+  }
+</style>

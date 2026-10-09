@@ -1,0 +1,146 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+import { THEMES, type ThemeId } from '../lib/site';
+import Archie from './Archie.astro';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale).archie;
+const themeIds = Object.keys(THEMES) as ThemeId[];
+const rows = i.recapRows.map((r) => {
+  const [n, ...rest] = r.split(' ');
+  return { n, label: rest.join(' ') };
+});
+---
+
+<section id="archie" class="scroll-mt-16 py-16 sm:py-24" aria-labelledby="archie-h">
+  <div class="wrap grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+    <div class="reveal drop-lg order-2 lg:order-1">
+      <div class="mat recap nt">
+        <p class="kicker">{i.recapLabel}</p>
+        <p class="disp mt-2 text-[clamp(40px,5.4vw,58px)]">{i.recapKnown}</p>
+        <div class="mt-7 flex items-end gap-6">
+          <ul class="grid flex-1 gap-2.5">
+            {
+              rows.map((r) => (
+                <li class="recap-row">
+                  <b class="disp text-[24px]">{r.n}</b>
+                  <span class="font-mono text-[13px]">{r.label}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <Archie width="clamp(84px, 24vw, 128px)" greet label={i.tap} class="shrink-0" />
+        </div>
+        <p class="bubble nt mt-7">{i.recapBubble}</p>
+      </div>
+    </div>
+
+    <div class="order-1 lg:order-2">
+      <SectionHead id="archie-h" eyebrow={i.eyebrow} title={i.title} />
+      <div class="reveal mt-5 grid max-w-[36rem] gap-4 text-[17px] leading-relaxed" style="color:var(--mesa-ink2)">
+        {i.body.map((p) => <p>{p}</p>)}
+      </div>
+
+      <div class="reveal mt-12" role="group" aria-labelledby="tables-h">
+        <h3 id="tables-h" class="disp text-[clamp(24px,2.6vw,30px)]">{i.tablesTitle}</h3>
+        <p class="mt-2 max-w-[36rem] text-[15.5px] leading-relaxed" style="color:var(--mesa-ink2)">{i.tablesLede}</p>
+        <div class="mt-5 grid grid-cols-3 gap-3">
+          {
+            themeIds.map((id) => (
+              <button type="button" class="theme-tile nt" data-set-theme={id} aria-pressed="false">
+                <span class="grid grid-cols-2 gap-1" aria-hidden="true">
+                  {[THEMES[id].day, THEMES[id].night].map((pal) => (
+                    <span class="mini mat nt" data-pal={pal}>
+                      <i class="cardback" />
+                      <i class="icard" />
+                    </span>
+                  ))}
+                </span>
+                <span class="mt-2 block text-[15px] font-semibold">{i.themes[id].name}</span>
+                <span class="block font-mono text-[10.5px] leading-snug" style="color:var(--mesa-ink2)">
+                  {i.themes[id].day} · {i.themes[id].night}
+                </span>
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .recap {
+    --s: 10px;
+    --h: 5px;
+    padding: clamp(22px, 4vw, 36px);
+  }
+  .recap-row {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px dashed var(--grid2);
+    color: var(--mesa-on-felt2);
+  }
+  .recap-row b {
+    color: var(--mesa-on-felt);
+    min-width: 1.2em;
+  }
+  .bubble {
+    --s: 4px;
+    --h: 2px;
+    display: inline-block;
+    background: var(--mesa-card);
+    color: var(--mesa-card-ink);
+    font: 600 15px var(--ui);
+    padding: 10px 14px;
+  }
+  .theme-tile {
+    --s: 6px;
+    --h: 3px;
+    text-align: left;
+    padding: 8px 8px 10px;
+    background: var(--mesa-surface);
+    box-shadow: inset 0 0 0 2px var(--mesa-rule);
+    color: var(--mesa-ink);
+    cursor: pointer;
+    transition: box-shadow 0.15s var(--ease);
+  }
+  .theme-tile:hover {
+    box-shadow: inset 0 0 0 2px var(--mesa-rule2);
+  }
+  .theme-tile[aria-pressed='true'] {
+    box-shadow: inset 0 0 0 2px var(--mesa-ink);
+  }
+  .mini {
+    --s: 4px;
+    --h: 2px;
+    position: relative;
+    height: 54px;
+    overflow: hidden;
+  }
+  .mini i {
+    position: absolute;
+    top: 9px;
+    width: 22px;
+    height: 32px;
+  }
+  .mini .cardback {
+    left: 18%;
+    transform: rotate(-8deg);
+    background-size: 5px 5px, 5px 5px, auto;
+  }
+  .mini .icard {
+    --s: 3px;
+    --h: 1.5px;
+    left: 46%;
+    transform: rotate(6deg);
+  }
+</style>

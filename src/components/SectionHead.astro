@@ -1,0 +1,15 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede?: string;
+  id: string;
+}
+const { eyebrow, title, lede, id } = Astro.props;
+---
+
+<div class="reveal max-w-[44rem]">
+  <p class="kicker">{eyebrow}</p>
+  <h2 id={id} class="disp mt-3 text-[clamp(32px,4.4vw,52px)]">{title}</h2>
+  {lede && <p class="mt-4 text-[17px] leading-relaxed" style="color:var(--mesa-ink2)">{lede}</p>}
+</div>

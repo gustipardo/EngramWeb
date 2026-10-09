@@ -5,7 +5,8 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   site: "https://engramcards.com",
   integrations: [
-    tailwind(),
+    // base styles come from src/styles/global.css (imported in Head.astro)
+    tailwind({ applyBaseStyles: false }),
     sitemap({
       i18n: {
         defaultLocale: "es",

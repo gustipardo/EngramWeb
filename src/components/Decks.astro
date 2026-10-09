@@ -1,0 +1,193 @@
+---
+import type { Locale } from '../i18n';
+import { t } from '../i18n';
+import Archie from './Archie.astro';
+import PxIcon from './PxIcon.astro';
+import SectionHead from './SectionHead.astro';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const i = t(locale).decks;
+---
+
+<section id="decks" class="mat-band scroll-mt-16 py-16 sm:py-24" aria-labelledby="decks-h">
+  <div class="wrap">
+    <SectionHead id="decks-h" eyebrow={i.eyebrow} title={i.title} lede={i.lede} />
+
+    <div class="mt-12 grid gap-5 lg:grid-cols-3">
+      {
+        i.items.map((item, n) => (
+          <article class="reveal drop" style={`transition-delay:${n * 80}ms`}>
+            <div class="panel deck-panel">
+              <div class="mat deck-visual nt" aria-hidden="true">
+                {n === 0 && (
+                  <div class="decklist">
+                    <div class="decklist-head">
+                      <span />
+                      {i.list.cols.map((c) => (
+                        <span>{c}</span>
+                      ))}
+                    </div>
+                    {i.list.rows.map((r) => (
+                      <div class="decklist-row">
+                        <span class="flex min-w-0 items-center gap-2">
+                          <i class="cardback chipback" />
+                          <span class="truncate">{r.name}</span>
+                        </span>
+                        <span style="color:var(--mesa-new)">{r.n}</span>
+                        <span style="color:var(--mesa-learn)">{r.l}</span>
+                        <span style="color:var(--mesa-due)">{r.d}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {n === 1 && (
+                  <div class="flex items-center gap-4">
+                    <div class="drop">
+                      <div class="icard minicard">
+                        <span class="idx" style="--is:14px;top:7px;left:8px">
+                          1<i />
+                        </span>
+                        <b class="block text-[15px] font-semibold">{i.cardSample.front}</b>
+                        <span class="mt-1.5 block text-[12px] leading-snug" style="color:var(--mesa-card-ink2)">
+                          {i.cardSample.back}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="slot">
+                      <PxIcon name="plus" size={14} />
+                      <span>{i.cardSample.newCard}</span>
+                    </div>
+                  </div>
+                )}
+                {n === 2 && (
+                  <div class="ai">
+                    <span class="font-mono text-[10.5px] uppercase tracking-[0.08em]" style="color:var(--mesa-on-felt2)">
+                      {i.aiPrompt}
+                    </span>
+                    <div class="ai-input nt">{i.aiExamples[1]}</div>
+                    <div class="mt-2 flex items-center justify-between">
+                      <span class="chip chip-back">{i.aiAttach}</span>
+                      <Archie width={30} />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div class="p-6">
+                <span class="chip chip-back">{item.tag}</span>
+                <h3 class="mt-3 text-[21px] font-semibold leading-snug">{item.title}</h3>
+                <p class="mt-2 text-[15.5px] leading-relaxed" style="color:var(--mesa-ink2)">
+                  {item.body}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .mat-band {
+    background: color-mix(in srgb, var(--mesa-felt) 45%, var(--mesa-paper));
+    border-block: 1px solid var(--mesa-rule);
+  }
+  .deck-panel {
+    height: 100%;
+    padding: 8px;
+    --s: 8px;
+    --h: 4px;
+  }
+  .deck-visual {
+    --s: 6px;
+    --h: 3px;
+    height: 176px;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+  }
+  .decklist {
+    width: 100%;
+    max-width: 290px;
+    font: 500 13px var(--ui);
+  }
+  .decklist-head,
+  .decklist-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 46px 52px 40px;
+    align-items: center;
+    text-align: right;
+  }
+  .decklist-head {
+    font: 400 10px var(--mono);
+    color: var(--mesa-on-felt2);
+    padding-bottom: 5px;
+    border-bottom: 2px solid var(--mesa-on-felt);
+  }
+  .decklist-row {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--grid2);
+    font-family: var(--mono);
+  }
+  .decklist-row > span:first-child {
+    text-align: left;
+    font-family: var(--ui);
+  }
+  .chipback {
+    --s: 2px;
+    --h: 1px;
+    width: 11px;
+    height: 15px;
+    flex: none;
+    background-size: 4px 4px, 4px 4px, auto;
+  }
+  .minicard {
+    --s: 6px;
+    --h: 3px;
+    width: 150px;
+    min-height: 118px;
+    padding: 30px 12px 12px;
+    transform: rotate(-3deg);
+  }
+  .slot {
+    width: 92px;
+    height: 118px;
+    border: 2px dashed color-mix(in srgb, var(--mesa-on-felt) 40%, transparent);
+    border-radius: 6px;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 6px;
+    font: 500 12px var(--ui);
+    color: var(--mesa-on-felt2);
+    text-align: center;
+    padding: 6px;
+  }
+  .ai {
+    width: 100%;
+    max-width: 290px;
+  }
+  .ai-input {
+    --s: 4px;
+    --h: 2px;
+    margin-top: 6px;
+    background: var(--mesa-card);
+    color: var(--mesa-card-ink);
+    font: 500 14px/1.35 var(--ui);
+    padding: 11px 12px;
+  }
+  .ai-input::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -2px;
+    background: var(--mesa-card-ink);
+    animation: blinkd 1s steps(1) infinite;
+  }
+</style>

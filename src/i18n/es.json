@@ -1,187 +1,347 @@
 {
   "meta": {
-    "title": "Engram · Tus mazos de Anki, estudiados por voz",
-    "description": "App Android que convierte tus mazos de AnkiDroid en sesiones de estudio por voz con un tutor de IA en tiempo real. Sin streaks, sin gamificación. Tu review queue, caminando."
+    "title": "Engram · Estudiá tus tarjetas en voz alta",
+    "description": "App para Android que estudia tus flashcards con vos, por voz. Un tutor te lee cada tarjeta, escucha tu respuesta y evalúa lo que quisiste decir. Funciona con mazos de AnkiDroid, mazos que armás en Engram o mazos que la IA escribe a partir de tus apuntes."
   },
+  "skip": "Ir al contenido",
   "nav": {
-    "features": "Cómo funciona",
-    "howItWorks": "Sesión",
+    "home": "Inicio de Engram",
+    "session": "Cómo funciona",
+    "decks": "Mazos",
+    "archie": "Archie",
     "pricing": "Precio",
-    "faq": "FAQ",
-    "download": "Descargar APK"
+    "faq": "Preguntas",
+    "cta": "Conseguí Engram",
+    "menu": "Menú",
+    "toNight": "Cambiar a la mesa de noche",
+    "toDay": "Cambiar a la mesa de día",
+    "otherLang": "English",
+    "otherLangShort": "EN"
   },
   "hero": {
-    "eyebrow": "Anki, para los oídos.",
-    "title": "Tus mazos de Anki,\nestudiados por voz.",
-    "subtitle": "No es un examen, es una conversación. El tutor te pregunta una card, escucha cómo la explicás, y te marca lo que falta. Aprendés formulando, no reconociendo.",
-    "ctaPrimary": "Descargar APK",
-    "ctaSecondary": "Ver cómo funciona",
-    "ctaHint": "Android 10+ · AnkiDroid requerido"
+    "kicker": "Un tutor de voz para tus flashcards · Android",
+    "title": "Estudiá tus tarjetas en voz alta.",
+    "lede": "Engram te lee una tarjeta y escucha tu respuesta. Decila a tu manera: evalúa lo que quisiste decir, no las palabras exactas. El teléfono puede quedarse en el bolsillo.",
+    "ctaPrimary": "Conseguí Engram",
+    "ctaSecondary": "Mirá cómo va una tarjeta",
+    "hint": "Android 7 o superior · Funciona con AnkiDroid o por su cuenta"
   },
-  "manifesto": {
-    "title": "Sin streaks. Sin XP. Sin badges.",
-    "subtitle": "Solo tu review queue y el tiempo que creías muerto."
-  },
-  "trustStrip": {
-    "items": [
-      "Corre sobre la voz en tiempo real de OpenAI",
-      "Tu audio viaja directo al modelo, nunca a nuestros servidores",
-      "Sin dark patterns · cancelás con un tap",
-      "Abierto y auditable sobre la API oficial de AnkiDroid"
-    ]
-  },
-  "features": {
-    "eyebrow": "01 · Qué hace",
-    "sectionTitle": "Una herramienta, no una app educativa.",
-    "sectionSubtitle": "No gamificamos el estudio. No te vendemos contenido. Conectamos tu AnkiDroid con un tutor que conversa sobre tus cards en vez de tomarte examen.",
-    "items": [
+  "demo": {
+    "label": "Un fragmento de una sesión de Engram: el tutor lee una tarjeta, respondés en voz alta, Engram la evalúa y reparte la siguiente.",
+    "pause": "Pausar",
+    "play": "Reanudar",
+    "left": "quedan",
+    "known": "sabidas",
+    "you": "Vos",
+    "answer": "Respuesta",
+    "phase": {
+      "asking": "Archie pregunta",
+      "answer": "Tu turno",
+      "evaluating": "Evaluando",
+      "feedback": "Devolución"
+    },
+    "cards": [
       {
-        "title": "Evaluación semántica real",
-        "description": "Sinónimos, orden distinto, frase natural. Todo ok. No pide match textual. Si dudás, el tutor te deja corregir a mano sin romper tu agenda de repasos."
+        "deck": "Anatomía",
+        "q": "¿Qué secreta el páncreas?",
+        "said": "Insulina y glucagón, y las enzimas digestivas.",
+        "a": "Insulina, glucagón y enzimas digestivas",
+        "good": true
       },
       {
-        "title": "Tus mazos, agnóstico al tema",
-        "description": "Medicina, dev, idiomas, derecho, certificaciones cloud. Funciona con cualquier mazo de AnkiDroid. No traemos contenido predefinido."
+        "deck": "Inglés",
+        "q": "¿Cómo pedís la cuenta en inglés?",
+        "said": "The bill, please.",
+        "a": "Could I have the bill, please?",
+        "good": true
       },
       {
-        "title": "Manos y ojos libres",
-        "description": "La sesión sigue con la pantalla apagada: caminando, lavando platos, en el gimnasio. Nunca manejando."
+        "deck": "Redes",
+        "q": "¿Qué paquete abre el handshake de TCP?",
+        "said": "¿El ACK?",
+        "a": "SYN",
+        "good": false
       },
       {
-        "title": "Tu audio no toca nuestro backend",
-        "description": "Conexión directa entre tu teléfono y el modelo. Nuestro servidor solo genera una clave temporal para iniciar la sesión. No almacenamos audio, ni lo procesamos, ni lo re-transmitimos."
-      },
-      {
-        "title": "Estudiá en cualquier idioma",
-        "description": "Configurás el idioma del tutor por mazo. Un mazo en español en español, uno en japonés en japonés. El modelo de voz en tiempo real cambia solo."
-      },
-      {
-        "title": "Anki sigue siendo la fuente de verdad",
-        "description": "Usamos la API oficial de AnkiDroid. No editamos tus cards, no cambiamos tu deck options, no rompemos tu sync con AnkiWeb. Anki es el hermano mayor respetado."
+        "deck": "AWS",
+        "q": "¿La clase de S3 más barata para datos que leés una vez al año?",
+        "said": "Glacier Deep Archive.",
+        "a": "S3 Glacier Deep Archive",
+        "good": true
       }
     ]
   },
-  "howItWorks": {
-    "eyebrow": "02 · Una sesión",
-    "sectionTitle": "Cómo se siente estudiar sin pantalla.",
-    "sectionSubtitle": "Cuatro gestos. Ninguno después del segundo.",
+  "manifesto": {
+    "title": "Sin vidas que perder. Sin racha que cortar.",
+    "body": "Las tarjetas que sabés van a tu pila. Las que fallás vuelven abajo del mazo y te tocan de nuevo. Ese es todo el juego."
+  },
+  "session": {
+    "eyebrow": "01 · Cómo funciona",
+    "title": "Cada tarjeta sigue el mismo camino.",
+    "lede": "Elegís un mazo, te ponés los auriculares y la sesión sigue por voz. No hace falta mirar la pantalla.",
     "steps": [
       {
-        "step": "01",
-        "title": "Otorgás permisos una sola vez",
-        "description": "Micrófono y AnkiDroid. Sin registro por email, sin tutorial de qué es una flashcard."
+        "title": "Archie pregunta",
+        "body": "Te lee la pregunta en voz alta, en el idioma que elegiste para ese mazo."
       },
       {
-        "step": "02",
-        "title": "Elegís un mazo",
-        "description": "Se listan tus decks con due cards. Tapeás uno. Ponete los auriculares y guardá el teléfono."
+        "title": "Respondés",
+        "body": "En voz alta, con tus palabras. El dorso de la tarjeta aparece en pantalla apenas terminás."
       },
       {
-        "step": "03",
-        "title": "Conversás con el tutor",
-        "description": "Lee la carta, escucha tu respuesta, la evalúa y avanza. Comandos de voz: repetir, saltar, pausar, corregir."
+        "title": "Engram evalúa",
+        "body": "Compara tu respuesta con la tarjeta. Un sinónimo o un orden distinto está bien. Que falte un dato, no."
       },
       {
-        "step": "04",
-        "title": "Los resultados vuelven a Anki",
-        "description": "Again, Hard, Good o Easy según la evaluación. Tu agenda de repasos sigue corriendo como siempre."
+        "title": "Escuchás por qué",
+        "body": "Si fallaste, escuchás la respuesta correcta. Después se reparte la tarjeta siguiente."
+      }
+    ],
+    "commandsTitle": "Hablale como a una persona.",
+    "commandsLede": "Sirve cualquier forma de decirlo, en cualquier idioma. Algunas cosas que podés decir:",
+    "commands": [
+      {
+        "say": "¿Podés repetir?",
+        "does": "Escuchás la pregunta otra vez."
+      },
+      {
+        "say": "Dame una pista",
+        "does": "Una pista, sin la respuesta."
+      },
+      {
+        "say": "No sé",
+        "does": "Escuchás la respuesta y seguís."
+      },
+      {
+        "say": "Saltá esta",
+        "does": "Seguís. La tarjeta vuelve más tarde."
+      },
+      {
+        "say": "Estaba bien",
+        "does": "Cambia la nota de la tarjeta que acabás de responder."
+      },
+      {
+        "say": "Archivá esta tarjeta",
+        "does": "Deja de aparecer hasta que la corrijas."
+      },
+      {
+        "say": "Terminemos acá",
+        "does": "Termina la sesión con un resumen corto."
+      }
+    ]
+  },
+  "decks": {
+    "eyebrow": "02 · Mazos",
+    "title": "Traé tus mazos, o armá nuevos.",
+    "lede": "Engram estudia el mazo que le des. No necesitás AnkiDroid para empezar.",
+    "items": [
+      {
+        "tag": "AnkiDroid",
+        "title": "Tus mazos de AnkiDroid",
+        "body": "Engram los lee con la API oficial de AnkiDroid y guarda cada nota como Good o Again, igual que si la hubieras tocado vos. Tus tarjetas, tipos de nota y opciones de mazo quedan como están."
+      },
+      {
+        "tag": "Engram",
+        "title": "Mazos que armás en Engram",
+        "body": "¿No usás AnkiDroid? Armá mazos en la app y cargá las tarjetas a mano. Un programador de repasos propio te trae cada tarjeta cuando le toca."
+      },
+      {
+        "tag": "IA",
+        "title": "Mazos escritos desde tus apuntes",
+        "body": "Contá qué querés aprender o adjuntá tus apuntes: PDF, diapositivas, Word o fotos. Archie te hace unas preguntas, escribe las tarjetas y prepara al tutor. Revisás cada tarjeta antes de guardar."
+      }
+    ],
+    "aiPrompt": "¿Qué querés estudiar?",
+    "aiExamples": [
+      "Verbos en español para un viaje a México",
+      "Examen AWS Solutions Architect en 3 semanas",
+      "Practicar respuestas de entrevista en inglés"
+    ],
+    "aiAttach": "apuntes.pdf",
+    "list": {
+      "cols": [
+        "nuevas",
+        "aprender",
+        "repaso"
+      ],
+      "rows": [
+        {
+          "name": "Farmacología",
+          "n": 20,
+          "l": 4,
+          "d": 31
+        },
+        {
+          "name": "Japonés básico",
+          "n": 10,
+          "l": 0,
+          "d": 12
+        },
+        {
+          "name": "AWS SAA",
+          "n": 0,
+          "l": 2,
+          "d": 7
+        }
+      ]
+    },
+    "cardSample": {
+      "front": "Mitocondria",
+      "back": "Donde la célula produce casi toda su energía",
+      "newCard": "Tarjeta nueva"
+    }
+  },
+  "archie": {
+    "eyebrow": "03 · Archie",
+    "title": "Te presentamos a Archie.",
+    "body": [
+      "Archie es un archivero. Reparte las tarjetas, mantiene en juego las que fallás y, cuando termina la sesión, las archiva hasta que les toque volver.",
+      "Si querés, te avisa para estudiar: como mucho una vez por día y solo cuando hay tarjetas esperando. Si salteás un día, no se rompe nada."
+    ],
+    "tap": "Saludá a Archie",
+    "recapLabel": "Sesión completada",
+    "recapKnown": "6 sabidas",
+    "recapRows": [
+      "2 mañana",
+      "3 en 4 días",
+      "1 en 12 días"
+    ],
+    "recapBubble": "Archivado. 2 vuelven mañana.",
+    "tablesTitle": "Elegí tu mesa.",
+    "tablesLede": "Tres temas, cada uno con un lado de día y uno de noche. Engram sigue el modo oscuro de tu teléfono. Probalos en esta página:",
+    "themes": {
+      "gold": {
+        "name": "Dorado",
+        "day": "Piedra y bronce",
+        "night": "Negro y oro"
+      },
+      "sage": {
+        "name": "Salvia",
+        "day": "Salvia",
+        "night": "Medianoche"
+      },
+      "sky": {
+        "name": "Cielo",
+        "day": "Cielo",
+        "night": "Azul marino"
+      }
+    }
+  },
+  "details": {
+    "eyebrow": "04 · Detalles",
+    "title": "Lo que la gente pregunta.",
+    "items": [
+      {
+        "title": "Cualquier tema, cualquier idioma",
+        "body": "Medicina, programación, idiomas, derecho, certificaciones cloud. Elegís el idioma del tutor por mazo: tarjetas en japonés, tutor en japonés."
+      },
+      {
+        "title": "Vos decidís qué tan estricto es",
+        "body": "Idea general, estándar o preciso, por mazo. Y le podés dar instrucciones propias al tutor, como \"sé estricto con los términos técnicos\"."
+      },
+      {
+        "title": "Pantalla apagada, manos libres",
+        "body": "La sesión sigue con la pantalla apagada: caminando, lavando los platos, en el gimnasio. Nunca manejando."
+      },
+      {
+        "title": "Tu audio no pasa por nuestros servidores",
+        "body": "Tu voz va del teléfono directo al modelo de voz en tiempo real de OpenAI. No guardamos ni retransmitimos audio."
       }
     ]
   },
   "pricing": {
-    "eyebrow": "03 · Precio",
-    "sectionTitle": "Cobramos lo que cuesta.",
-    "lede": "Las APIs de voz cuestan plata. Lo decimos directamente porque preferimos que vos entiendas dónde va tu dinero.",
-    "trial": {
-      "label": "Plan gratis",
-      "value": "30 minutos de voz por mes",
-      "note": "Sin tarjeta. Entrás con Google y estudiás. Si te sirve, te suscribís."
-    },
-    "plan": {
-      "label": "Engram Pro",
-      "price": "US$9,99",
-      "priceSuffix": "/ mes",
-      "note": "300 minutos de voz por mes, unos 10 minutos por día. O US$79,99 al año.",
+    "eyebrow": "05 · Precio",
+    "title": "Cobramos por minuto de voz.",
+    "lede": "Cada minuto de voz nos cuesta plata, así que los planes se cuentan en minutos. El tiempo en pausa no cuenta.",
+    "free": {
+      "label": "Gratis",
+      "amount": "30",
+      "unit": "minutos de voz por mes",
       "features": [
-        "Tutor de voz en tiempo real",
-        "Todos tus mazos de AnkiDroid y tus mazos de Engram",
-        "30 mazos por mes creados con IA a partir de tus apuntes",
-        "Cancelás desde Play Store con un tap"
+        "2 mazos escritos con IA por mes",
+        "Todos tus mazos: AnkiDroid y Engram",
+        "Sin tarjeta. Entrás con Google"
       ]
     },
-    "antiDarkPattern": "No tenemos \"¿estás seguro de cancelar?\". No escondemos el botón. No cobramos un mes extra. El día que canceles, cancela."
+    "pro": {
+      "label": "Engram Pro",
+      "price": "US$9,99",
+      "priceMain": "US$9",
+      "priceCents": "99",
+      "per": "por mes",
+      "alt": "o US$79,99 por año",
+      "features": [
+        "300 minutos de voz por mes, unos 10 por día",
+        "30 mazos escritos con IA por mes",
+        "Todos tus mazos: AnkiDroid y Engram",
+        "Cancelás cuando quieras desde Google Play"
+      ]
+    },
+    "note": "Cancelás desde Google Play como cualquier otra suscripción. Seguís con Pro hasta que termina el período que pagaste."
   },
   "faq": {
-    "eyebrow": "04 · FAQ",
-    "sectionTitle": "Lo que vas a querer saber.",
+    "eyebrow": "06 · Preguntas",
+    "title": "Preguntas.",
+    "privacyLink": "Leé la política de privacidad",
     "items": [
       {
-        "question": "¿Modifica mi colección de Anki?",
-        "answer": "No. Usamos la integración oficial de AnkiDroid: leemos tus cards y escribimos de vuelta los resultados Again, Hard, Good o Easy, igual que si los hubieras marcado a mano. No tocamos cards, note types, deck options ni tu sync con AnkiWeb."
+        "question": "¿Necesito AnkiDroid?",
+        "answer": "No. Podés armar mazos en Engram o pedirle a Archie que escriba uno con tus apuntes. Si ya usás AnkiDroid, Engram también estudia esos mazos."
       },
       {
-        "question": "¿Qué pasa si la IA evalúa mal?",
-        "answer": "Decís \"marcar bien\" o \"marcar mal\" y el resultado se sobrescribe. Si la corrección sistemática supera el 10%, el producto está roto. Es un indicador que monitoreamos."
+        "question": "¿Modifica mi colección de Anki?",
+        "answer": "Solo las notas. Engram lee tus tarjetas con la API oficial de AnkiDroid y guarda cada resultado como Good o Again, igual que si lo hubieras tocado vos. Tarjetas, tipos de nota y opciones de mazo quedan como están."
+      },
+      {
+        "question": "¿Y si me evalúa mal?",
+        "answer": "Decí \"Estaba bien\" y la tarjeta que acabás de responder queda como correcta. \"Estaba mal\" hace lo contrario."
       },
       {
         "question": "¿Se rompe la programación de mis repasos?",
-        "answer": "No. El resultado de la sesión entra a AnkiDroid como un repaso más, y tu programador de repasos (el mismo que usás en Anki) lo procesa igual que cualquier otro. Tu agenda de estudio queda intacta."
+        "answer": "No. Una nota de Engram es un repaso común, y tu programador lo procesa como cualquier otro."
       },
       {
-        "question": "¿Dónde viaja mi audio?",
-        "answer": "Directo de tu teléfono al modelo de voz en tiempo real de OpenAI. Nuestro servidor solo genera una clave temporal para la sesión. No almacenamos audio, y el audio nunca pasa por nuestro servidor."
+        "question": "¿Adónde va mi voz?",
+        "answer": "Del teléfono directo al modelo de voz en tiempo real de OpenAI, que te escucha y habla con la voz del tutor. El texto de tu respuesta va a TypeSafe (Jev), que la evalúa. Nunca guardamos tu audio."
       },
       {
         "question": "¿Funciona sin internet?",
-        "answer": "No. El tutor es un modelo online. Si perdés conexión a mitad de sesión, la sesión se pausa y retoma sola cuando volvés a tener señal. Lo que ya respondiste queda guardado."
+        "answer": "No. El tutor funciona en línea, así que la sesión necesita conexión."
       },
       {
-        "question": "¿iOS?",
-        "answer": "Todavía no. La integración con AnkiDroid es Android-only (AnkiMobile en iOS no permite esta integración). iOS queda para después de validar el producto."
+        "question": "¿Hay versión para iPhone?",
+        "answer": "Todavía no. Por ahora Engram es solo para Android."
       },
       {
         "question": "¿Puedo usarlo manejando?",
-        "answer": "No. En ninguna situación. Nunca lo vamos a promover para auto, moto ni bicicleta. El caso de uso es caminar, cocinar, lavar platos, gym. Lugares donde un segundo de atención no te mata."
+        "answer": "No. Ni en auto, ni en moto, ni en bicicleta. Usalo caminando, cocinando, lavando los platos o en el gimnasio, donde distraerte un segundo no es un riesgo."
       },
       {
-        "question": "¿Por qué pagamos si la API la pago yo?",
-        "answer": "No la pagás vos. La suscripción incluye los minutos de voz; nosotros pagamos el costo de la IA. Por eso hay un límite mensual: cada minuto de voz nos cuesta plata, y preferimos decirlo antes que esconderlo."
+        "question": "¿Por qué hay un límite de minutos?",
+        "answer": "Cada minuto de voz nos cuesta plata con el proveedor de IA. Contar minutos mantiene el precio fijo y te dice exactamente qué estás pagando."
       }
     ]
   },
   "cta": {
-    "eyebrow": "Probalo",
-    "title": "Convertí el tiempo\nmuerto.",
-    "subtitle": "Bajate la app, conectá AnkiDroid y estudiá con 30 minutos de voz gratis por mes. Empezá con la próxima caminata.",
-    "button": "Descargar APK",
-    "hint": "Android 10 o superior · AnkiDroid v2.17+"
+    "title": "Tu próxima caminata es una sesión de estudio.",
+    "body": "Engram llega pronto a Google Play. ¿Querés probarlo antes? Escribinos y te sumamos al grupo de prueba.",
+    "button": "Descargalo en Google Play",
+    "buttonEarly": "Sumate al grupo de prueba",
+    "mailSubject": "Grupo de prueba de Engram",
+    "hint": "Android 7 o superior"
   },
   "footer": {
-    "tagline": "Engram · Conversational Flashcards. Un tutor de voz sobre tu AnkiDroid.",
+    "tagline": "Engram · Flashcards Conversacionales. Un tutor de voz para tus tarjetas.",
     "builtBy": "Hecho por Tobías Pardo · UTN Facultad Regional Delta",
-    "sections": {
-      "product": "Producto",
-      "resources": "Recursos",
-      "legal": "Legal"
-    },
+    "product": "Producto",
+    "legal": "Legal",
     "links": {
-      "features": "Cómo funciona",
-      "howItWorks": "Sesión",
-      "pricing": "Precio",
-      "faq": "FAQ",
-      "download": "Descargar APK",
-      "changelog": "Changelog",
-      "roadmap": "Roadmap",
       "privacy": "Privacidad",
       "terms": "Términos",
-      "safety": "Uso seguro",
+      "deleteAccount": "Eliminar tu cuenta",
       "contact": "Soporte"
     },
-    "theme": {
-      "label": "Tema",
-      "light": "Claro",
-      "dark": "Oscuro"
-    },
-    "copyright": "Engram · Todos los derechos reservados."
+    "trademark": "Anki y AnkiDroid son marcas de sus respectivos dueños. Engram es un producto independiente, sin relación ni aval de ellos.",
+    "copyright": "Engram"
   }
 }

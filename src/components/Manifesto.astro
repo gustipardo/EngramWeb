@@ -10,13 +10,9 @@ const { locale } = Astro.props;
 const i = t(locale);
 ---
 
-<section class="border-y border-paper-300 bg-paper-200/70 transition-colors dark:border-navy-800 dark:bg-navy-850">
-  <div class="mx-auto flex max-w-6xl flex-col items-start gap-4 px-4 py-16 sm:px-6 sm:py-20 md:flex-row md:items-center md:justify-between md:gap-12">
-    <h2 class="font-display text-3xl font-medium leading-tight text-navy-900 sm:text-4xl md:text-5xl dark:text-paper-100 [font-variation-settings:'opsz'_72]">
-      {i.manifesto.title}
-    </h2>
-    <p class="max-w-md text-lg leading-relaxed text-navy-500 dark:text-paper-100/60">
-      {i.manifesto.subtitle}
-    </p>
+<section class="rule-b">
+  <div class="wrap grid gap-5 py-14 sm:py-16 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:items-center md:gap-12">
+    <h2 class="disp reveal text-[clamp(30px,4vw,46px)] leading-[1.02]">{i.manifesto.title}</h2>
+    <p class="reveal max-w-md text-[17px] leading-relaxed" style="color:var(--mesa-ink2)">{i.manifesto.body}</p>
   </div>
 </section>

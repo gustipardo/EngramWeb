@@ -1,0 +1,134 @@
+/* Mirror of the mesa block in _design/03-tokens/tokens.css (generated from tokens.json).
+   Web is its own repo and cannot import _design/ at build time, so this file is copied
+   by hand. Change tokens.json first, regenerate tokens.css, then copy the block here. */
+/* BEGIN mesa (generated from tokens.json) */
+[data-pal="stone"] {
+  --mesa-paper: #f1f0ec;
+  --mesa-surface: #ffffff;
+  --mesa-ink: #1c1a15;
+  --mesa-ink2: #57534a;
+  --mesa-ink3: #757067;
+  --mesa-rule: #dedbd3;
+  --mesa-rule2: #c0bbb0;
+  --mesa-new: #2d5da1;
+  --mesa-learn: #b8322a;
+  --mesa-due: #2f7a4a;
+  --mesa-felt: #dfdbd0;
+  --mesa-felt2: #cdc7b8;
+  --mesa-on-felt: #1f1c15;
+  --mesa-on-felt2: #5f5848;
+  --mesa-back: #b08a2e;
+  --mesa-on-back: #17140e;
+  --mesa-miss-felt: #a3302a;
+}
+[data-pal="gold"] {
+  --mesa-paper: #15130c;
+  --mesa-surface: #1f1b14;
+  --mesa-ink: #e8eae5;
+  --mesa-ink2: #a6abaf;
+  --mesa-ink3: #858b90;
+  --mesa-rule: #312d24;
+  --mesa-rule2: #4a453a;
+  --mesa-new: #86a9e3;
+  --mesa-learn: #f07a6e;
+  --mesa-due: #74c28f;
+  --mesa-felt: #1b1c1f;
+  --mesa-felt2: #121315;
+  --mesa-on-felt: #ede6d3;
+  --mesa-on-felt2: #b5ac95;
+  --mesa-back: #c9a44c;
+  --mesa-on-back: #17140e;
+  --mesa-miss-felt: #ff9a8c;
+}
+[data-pal="sage"] {
+  --mesa-paper: #eef1ec;
+  --mesa-surface: #ffffff;
+  --mesa-ink: #15201a;
+  --mesa-ink2: #4a5850;
+  --mesa-ink3: #67756c;
+  --mesa-rule: #d6ddd6;
+  --mesa-rule2: #b4bfb6;
+  --mesa-new: #2d5da1;
+  --mesa-learn: #b8322a;
+  --mesa-due: #2f7a4a;
+  --mesa-felt: #d2dfd5;
+  --mesa-felt2: #bfd0c3;
+  --mesa-on-felt: #13241b;
+  --mesa-on-felt2: #4a6153;
+  --mesa-back: #e4572e;
+  --mesa-on-back: #ffffff;
+  --mesa-miss-felt: #b8322a;
+}
+[data-pal="midnight"] {
+  --mesa-paper: #081511;
+  --mesa-surface: #0f1f1a;
+  --mesa-ink: #e8eae5;
+  --mesa-ink2: #a6abaf;
+  --mesa-ink3: #858b90;
+  --mesa-rule: #1e312c;
+  --mesa-rule2: #334a43;
+  --mesa-new: #86a9e3;
+  --mesa-learn: #f07a6e;
+  --mesa-due: #74c28f;
+  --mesa-felt: #0f2a22;
+  --mesa-felt2: #0a1f19;
+  --mesa-on-felt: #ddebe4;
+  --mesa-on-felt2: #8fb0a2;
+  --mesa-back: #e4572e;
+  --mesa-on-back: #ffffff;
+  --mesa-miss-felt: #ff9a8c;
+}
+[data-pal="sky"] {
+  --mesa-paper: #eef2f5;
+  --mesa-surface: #ffffff;
+  --mesa-ink: #141a20;
+  --mesa-ink2: #4a5560;
+  --mesa-ink3: #687380;
+  --mesa-rule: #d5dde4;
+  --mesa-rule2: #b3bfca;
+  --mesa-new: #2d5da1;
+  --mesa-learn: #b8322a;
+  --mesa-due: #2f7a4a;
+  --mesa-felt: #d3e0ea;
+  --mesa-felt2: #bfd0dd;
+  --mesa-on-felt: #12202b;
+  --mesa-on-felt2: #48607a;
+  --mesa-back: #e4572e;
+  --mesa-on-back: #ffffff;
+  --mesa-miss-felt: #b8322a;
+}
+[data-pal="navy"] {
+  --mesa-paper: #0b141c;
+  --mesa-surface: #131d26;
+  --mesa-ink: #e8eae5;
+  --mesa-ink2: #a6abaf;
+  --mesa-ink3: #858b90;
+  --mesa-rule: #232f39;
+  --mesa-rule2: #3a4753;
+  --mesa-new: #86a9e3;
+  --mesa-learn: #f07a6e;
+  --mesa-due: #74c28f;
+  --mesa-felt: #0f2233;
+  --mesa-felt2: #0a1825;
+  --mesa-on-felt: #dce6ef;
+  --mesa-on-felt2: #8fa6bd;
+  --mesa-back: #e4572e;
+  --mesa-on-back: #ffffff;
+  --mesa-miss-felt: #ff9a8c;
+}
+:root {
+  --mesa-card: #FFFFFF;
+  --mesa-card-ink: #15171A;
+  --mesa-card-ink2: #5A6066;
+  --mesa-good: #2E7D4F;
+  --mesa-again: #C62828;
+  --mesa-outline: #15171A;
+  --mesa-tongue: #E0564B;
+  --mesa-sticker: #F5F2EB;
+  --mesa-sticker-under: #E2DDD1;
+  --mesa-sticker-ink: #8C877B;
+  --mesa-streak-bronze: #B8733A;
+  --mesa-streak-silver: #8C969F;
+  --mesa-streak-gold: #D4A72C;
+}
+/* END mesa */

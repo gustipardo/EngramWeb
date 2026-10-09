@@ -1,0 +1,24 @@
+---
+/**
+ * The speaking-card logo, pixel "Outlined, square" (ART-STYLE §6), coloured from the
+ * active table. `n` is the definition (pixels across), `width` the CSS size.
+ * `animate` plays the 4.6 s flip loop (src/scripts/mesa.ts); the static frame is frame 1.
+ */
+import { logoSvg } from '../lib/pixel';
+
+interface Props {
+  n?: number;
+  width: number;
+  animate?: boolean;
+  muted?: boolean;
+  class?: string;
+}
+const { n = 48, width, animate = false, muted = false, class: cls = '' } = Astro.props;
+---
+
+<span
+  class:list={['pixel-logo inline-block', muted && 'logo-muted', cls]}
+  style={`width:${width}px`}
+  data-logo-n={animate ? n : undefined}
+  set:html={logoSvg(n)}
+/>

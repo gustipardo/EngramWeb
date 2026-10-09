@@ -1,0 +1,37 @@
+---
+/** The landing, one stack for both locales (src/pages/index.astro, en/index.astro). */
+import type { Locale } from '../i18n';
+import Layout from '../layouts/Layout.astro';
+import ArchieSection from './ArchieSection.astro';
+import CTA from './CTA.astro';
+import Decks from './Decks.astro';
+import Details from './Details.astro';
+import FAQ from './FAQ.astro';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import Manifesto from './Manifesto.astro';
+import Pricing from './Pricing.astro';
+import Session from './Session.astro';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+---
+
+<Layout locale={locale}>
+  <Header locale={locale} />
+  <main id="main">
+    <Hero locale={locale} />
+    <Manifesto locale={locale} />
+    <Session locale={locale} />
+    <Decks locale={locale} />
+    <ArchieSection locale={locale} />
+    <Details locale={locale} />
+    <Pricing locale={locale} />
+    <FAQ locale={locale} />
+    <CTA locale={locale} />
+  </main>
+  <Footer locale={locale} />
+</Layout>

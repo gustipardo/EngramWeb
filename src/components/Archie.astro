@@ -1,0 +1,29 @@
+---
+/**
+ * Archie, the filing cabinet (ART-STYLE §7). Blinks every ~4 s; with `greet` he hops
+ * once when scrolled into view; with `label` he is a button that hops when pressed.
+ * Behaviour lives in src/scripts/mesa.ts.
+ */
+import { archieSvg } from '../lib/pixel';
+
+interface Props {
+  /** px, or any CSS length */
+  width: number | string;
+  greet?: boolean;
+  label?: string;
+  class?: string;
+}
+const { width, greet = false, label, class: cls = '' } = Astro.props;
+const Tag = label ? 'button' : 'span';
+---
+
+<Tag
+  class:list={['archie', cls]}
+  style={`width:${typeof width === 'number' ? `${width}px` : width}`}
+  data-archie
+  data-greet={greet ? '' : undefined}
+  type={label ? 'button' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  set:html={archieSvg()}
+/>

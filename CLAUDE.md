@@ -1,15 +1,14 @@
 # CLAUDE.md — Web/ (landing page)
 
-Guidance for working inside the Astro landing page.
+Guidance for working inside the Astro landing page (engramcards.com).
 
 > For the whole-project map, see `../CLAUDE.md` at the repo root.
-> For brand voice / visual system, see `../_design/01-identidad.md` + `../_design/03-tokens/`.
+> Visual system: `../_design/09-mesa-pixel/ART-STYLE.md` (Mesa, modern pixel; same style as the app).
+> Voice: `../_design/01-identidad.md` §10.
 
 ## What this is
 
-Production-ready bilingual ES/EN landing page for Flashcards Conversacionales (wordmark: Engram). Astro 5 + Tailwind 3.4. Static output.
-
-**This is the real landing page.** The old empty `Landing page/` sibling folder has been deleted.
+Bilingual ES/EN landing for Engram (product name Flashcards Conversacionales / Conversational Flashcards). Astro 5 + Tailwind 3.4, static output. Deployed by Cloudflare Pages on every push to `main` of `github.com/gustipardo/EngramWeb`, so **a push is a deploy**.
 
 ## Commands
 
@@ -18,74 +17,68 @@ npm install
 npm run dev      # dev server on localhost:4321
 npm run build    # static build to dist/
 npm run preview  # preview the built site
+node_modules/.bin/tsc --noEmit -p .   # type-check src/lib + src/scripts (the build does not)
 ```
 
 ## Stack
 
-- **Astro 5.7** (static site generator, component islands).
-- **Tailwind 3.4** via `@astrojs/tailwind`.
-- **@astrojs/sitemap** for `/sitemap-index.xml`.
-- Note: `_design/` docs target Tailwind v4 + shadcn/ui + next-themes — this codebase hasn't been migrated yet. Don't mix.
+- **Astro 5.7**, **Tailwind 3.4** via `@astrojs/tailwind` with `applyBaseStyles: false` (base styles come from `src/styles/global.css`), **@astrojs/sitemap**.
+- No UI framework. Interactivity is three small TS modules in `src/scripts/`.
+- `_design/` docs target Tailwind v4 + shadcn/ui. This codebase is not migrated; don't mix.
 
 ## Routing & i18n
 
-Astro's built-in i18n, configured in `astro.config.mjs`:
-- `defaultLocale: 'es'` with `prefixDefaultLocale: false` → Spanish is at `/`, English is at `/en/`.
+Astro i18n: `defaultLocale: 'es'`, `prefixDefaultLocale: false` → Spanish at `/`, English at `/en/`.
 
-Page files are one-per-locale, intentionally duplicated:
-- `src/pages/index.astro` → `/` (ES) — passes `locale="es"` to `Layout`.
-- `src/pages/en/index.astro` → `/en/` (EN) — passes `locale="en"`.
-
-Both render the exact same component stack. If you edit one, **edit the other** (or refactor to a shared partial).
-
-Translations:
-- `src/i18n/es.json`, `src/i18n/en.json` — flat key trees (`meta`, `nav`, `hero`, `features`, `howItWorks`, `faq`, `cta`, `footer`).
-- `src/i18n/index.ts` — helpers: `t(locale)` returns the translation object, `getAlternateUrl()` builds the language-switched URL (ES has no prefix, EN has `/en/`).
+- `src/pages/index.astro` and `src/pages/en/index.astro` are one-line wrappers around `components/LandingPage.astro` (the shared stack). Edit the components, not the pages.
+- Legal pages (`privacy`, `terms`, `delete-account`, each ES + EN) use `layouts/LegalLayout.astro`. Their long-form text lives inline in the page by design.
+- Copy: `src/i18n/en.json` and `es.json`, same key tree (`meta`, `nav`, `hero`, `demo`, `manifesto`, `session`, `decks`, `archie`, `details`, `pricing`, `faq`, `cta`, `footer`). The hero demo's cards are copy too (`demo.cards`). Spanish uses voseo. Keep both files key-for-key.
 
 ## File layout
 
 ```
 Web/
-├── astro.config.mjs     ← Astro + Tailwind + sitemap + i18n config
-├── tailwind.config.mjs  ← Engram palette: navy / amber / paper / sage / terracota (mirrors _design/03-tokens)
-├── tsconfig.json        ← Extends Astro strict defaults
-├── package.json
-├── public/              ← Static assets (favicon.svg referenced; add real assets here)
+├── astro.config.mjs        ← site, sitemap, i18n, tailwind (applyBaseStyles: false)
+├── tailwind.config.mjs     ← `mesa-*` colours = the CSS variables; fonts disp / ui / mono / wordmark
+├── public/                 ← favicon.svg (pixel card, Stone & brass), og-en.png / og-es.png, robots.txt
 └── src/
+    ├── styles/
+    │   ├── mesa-tokens.css ← MIRROR of the mesa block in _design/03-tokens/tokens.css (copy, don't edit)
+    │   └── global.css      ← primitives: notch, mat, buttons, chips, index card, card back, stamps,
+    │                         level bars, pixel palette classes (pK, pB…), Archie; utilities load last
+    ├── lib/
+    │   ├── pixel.ts        ← literal port of the UI kit's drawLogoN / logoSeqN, Archie map, icons
+    │   └── site.ts         ← SITE_URL, SUPPORT_EMAIL, PLAY_URL, JSON-LD prices, THEMES (day/night pairs)
+    ├── scripts/
+    │   ├── mesa.ts         ← day/night toggle, theme picker, logo flip loop, Archie blink + hop, reveals, menu
+    │   ├── demo.ts         ← the hero session loop (deal, answer, grade, pile / under the deck)
+    │   └── archie.ts       ← blink() and hop() with the kit's timings
     ├── layouts/
-    │   ├── Layout.astro      ← Master HTML template: meta, JSON-LD (FAQPage + SoftwareApplication), canonical + hreflang, Open Graph
-    │   └── LegalLayout.astro ← Dedicated legal chrome (own head/canonical/hreflang, no marketing JSON-LD)
-    ├── pages/
-    │   ├── index.astro           ← /            (Spanish)
-    │   ├── privacy.astro         ← /privacy     (ES) — legal copy inline, NOT in i18n (intentional exception)
-    │   ├── terms.astro           ← /terms       (ES)
-    │   └── en/                   ← /en/, /en/privacy, /en/terms (English mirrors)
-    ├── components/           ← One component per landing section
-    │   ├── Header.astro       ← Nav + Engram wordmark + lang switcher + download CTA + mobile hamburger
-    │   ├── Hero.astro         ← Tagline, headline, subtitle, dual CTAs
-    │   ├── TrustStrip.astro   ← Credibility strip under the hero
-    │   ├── Features.astro     ← 6-card grid with SVG icons
-    │   ├── HowItWorks.astro   ← Numbered step list
-    │   ├── Manifesto.astro    ← Anti-Duolingo positioning section
-    │   ├── Pricing.astro      ← Plan cards (trial + monthly/yearly)
-    │   ├── FAQ.astro          ← Collapsible accordion with chevron rotation
-    │   ├── CTA.astro          ← Full-width download CTA (APK button still href="#", pending a real URL)
-    │   └── Footer.astro       ← Footer: brand / product / legal / support (mailto) / copyright
-    └── i18n/
-        ├── es.json
-        ├── en.json
-        └── index.ts
+    │   ├── Layout.astro      ← landing <html>: canonical, hreflang, Open Graph, JSON-LD (FAQPage + SoftwareApplication)
+    │   └── LegalLayout.astro ← legal chrome, own canonical/hreflang, no marketing JSON-LD
+    ├── components/
+    │   ├── Head.astro         ← shared <head>: fonts, favicon, global.css, inline table resolver (window.engramTheme)
+    │   ├── LandingPage.astro  ← section order
+    │   ├── Header / Hero / SessionDemo / Manifesto / Session / Decks / ArchieSection /
+    │   │   Details / Pricing / FAQ / CTA / Footer
+    │   └── PixelLogo / Archie / PxIcon / SectionHead   ← building blocks
+    └── i18n/ (en.json, es.json, index.ts)
 ```
 
 ## Conventions
 
-- **Light mode is the brand default** (decision 2026-06-27; overrides the older dark-default note in `_design/01-identidad.md`). The landing renders light with the Engram palette (paper background, amber accents).
-- **Copy lives in `src/i18n/*.json` only.** Don't put strings in `.astro` files; add keys to both `es.json` and `en.json`. Exception: long-form legal text lives inline in `privacy/terms` pages by design.
-- **SEO:** when adding a page, update `Layout.astro`'s canonical/hreflang generation and check sitemap output.
-- **Accessibility baseline:** ARIA labels present, semantic HTML, mobile breakpoints via Tailwind (`sm`, `md`, `lg`). Preserve these when editing.
+- **Tables (themes).** `<html data-pal>` picks the table; every colour is a `--mesa-*` variable, so all components follow it. Default follows the phone: Stone & brass by day, Black & gold by night (ART-STYLE §3). Visitors can flip day/night (header) and pick Gold / Sage / Sky (Archie section). Stored in `localStorage` (`engram-mode`, `engram-table`); a flip that matches the phone clears `engram-mode` so the page follows the phone again. The resolver is inline in `Head.astro` so there is no flash; it duplicates `THEMES` from `site.ts` because inline scripts cannot import.
+- **No hardcoded colours.** Use `var(--mesa-…)` or the `mesa-*` Tailwind colours. Exceptions: `public/favicon.svg` and the OG PNGs (resolved Stone & brass values, regenerated by script).
+- **Type.** Doto 900 for display only (headings, big numbers), never under ~16 px or for running text. Its full stop renders as a small cross, so prices use superscript cents (`priceMain` + `priceCents`), not "9.99". Geist for UI, Geist Mono for meta and stamps, Fraunces 500 for the "Engram" wordmark only.
+- **Pixel art** comes from `src/lib/pixel.ts`, never redrawn by eye. The logo port reproduces the kit frame for frame: the Graph frames at 16/24/48/96 px match `App/src/components/mesa/__tests__/fixtures/kitLogoHashes.json` (sha1 of `logoGridN` rows).
+- **Motion** respects `prefers-reduced-motion` (the demo then shows the graded first card, still). The demo pauses off screen, in hidden tabs and with its Pause button.
+- **Download CTA.** `PLAY_URL` in `src/lib/site.ts` is empty until the Play listing exists; until then the buttons read "Join the test group" (mailto support). Set the URL and every CTA switches to "Get it on Google Play".
+- **Copy rules.** Never "Anki" in product naming or headlines (trademark); nominative use ("works with AnkiDroid", "your Anki collection") is fine. No em dashes. Never suggest using the app while driving. Grades are only Good or Again (the app writes pass/fail).
+- **SEO.** When adding a page, add canonical/hreflang and check the sitemap. JSON-LD prices come from `site.ts`.
+- **Accessibility.** Skip link, labelled controls (`aria-pressed` on theme tiles, `aria-expanded` on the menu), the demo has a text caption and a pause control.
 
-## When to touch `_design/` instead
+## Regenerating assets
 
-- Changing brand colors / type / spacing → edit `_design/03-tokens/tokens.json` + regenerate `tokens.css`, then consume here.
-- Changing voice / messaging style → consult `_design/01-identidad.md` §10 before writing copy.
-- Rendering marketing banners (OG image, social) → use templates in `_design/05-marketing/banners/` + Puppeteer (see `rendering-guide.md`). Don't build those in Astro.
+- **Tokens:** change `_design/03-tokens/tokens.json`, regenerate `tokens.css`, then copy its `BEGIN mesa … END mesa` block into `src/styles/mesa-tokens.css`.
+- **OG images:** build, `npm run preview`, then screenshot the hero at 1200 × 630 with Puppeteer, light scheme + `prefers-reduced-motion: reduce`, header / secondary button / hint hidden. Save as `public/og-en.png` and `public/og-es.png`.
+- **Favicon:** `logoGridN(32, 18, false, null, 0)` cropped to the card (no ray), colours resolved for Stone & brass (`back #B08A2E`, `lt`/`dk`/`q` mixed as in global.css), viewBox `1 1 20 24`.

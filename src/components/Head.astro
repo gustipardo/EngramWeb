@@ -1,0 +1,81 @@
+---
+/**
+ * <head> basics shared by the landing and the legal pages: fonts, favicon, styles and
+ * the table resolver. The resolver runs before first paint so the page never flashes
+ * the wrong table. A theme is a day table and its night pair (src/lib/site.ts THEMES,
+ * copied inline below because this script cannot import). Day / night follows the
+ * phone unless the visitor flips it; a flip that matches the phone goes back to
+ * following it.
+ */
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+<script is:inline>
+  (function () {
+    var T = { gold: ['stone', 'gold'], sage: ['sage', 'midnight'], sky: ['sky', 'navy'] };
+    var d = document.documentElement;
+    var mq = window.matchMedia('(prefers-color-scheme: dark)');
+    d.classList.remove('no-js');
+    function get(k) {
+      try {
+        return localStorage.getItem(k);
+      } catch (e) {
+        return null;
+      }
+    }
+    function put(k, v) {
+      try {
+        if (v == null) localStorage.removeItem(k);
+        else localStorage.setItem(k, v);
+      } catch (e) {}
+    }
+    // the old site stored 'dark' / 'light' under engram-theme
+    var old = get('engram-theme');
+    if (old === 'dark' || old === 'light') {
+      if (!get('engram-mode')) put('engram-mode', old === 'dark' ? 'night' : 'day');
+      put('engram-theme', null);
+    }
+    function apply() {
+      var t = get('engram-table');
+      if (!T[t]) t = 'gold';
+      var m = get('engram-mode');
+      var night = m === 'night' || (m !== 'day' && mq.matches);
+      d.setAttribute('data-pal', T[t][night ? 1 : 0]);
+      d.setAttribute('data-theme', t);
+      d.setAttribute('data-night', night ? '1' : '0');
+      document.dispatchEvent(new CustomEvent('engram:theme'));
+    }
+    window.engramTheme = {
+      setTheme: function (t) {
+        if (T[t]) put('engram-table', t);
+        apply();
+      },
+      toggleNight: function () {
+        var want = d.getAttribute('data-night') === '1' ? 'day' : 'night';
+        put('engram-mode', want === (mq.matches ? 'night' : 'day') ? null : want);
+        apply();
+      },
+    };
+    if (mq.addEventListener) mq.addEventListener('change', apply);
+    apply();
+  })();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Doto:wght@900&family=Fraunces:opsz,wght@9..144,500&family=Geist+Mono:wght@400;500;700&family=Geist:wght@400;500;600;700&display=swap"
+/>
