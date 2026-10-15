@@ -1,6 +1,6 @@
 /**
  * Pixel art for the landing: the speaking-card logo, Archie and the small icons.
- * Literal port of _design/08-visual-divergence/engram-ui-kit.html (`drawLogoN`,
+ * Literal port of Design/08-visual-divergence/engram-ui-kit.html (`drawLogoN`,
  * `logoSeqN`, `A.map`, `ICON`), the same source the app's PixelLogo is checked against.
  * Card back is fixed to Graph, the approved default (ART-STYLE §8).
  *

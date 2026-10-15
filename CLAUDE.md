@@ -3,8 +3,8 @@
 Guidance for working inside the Astro landing page (engramcards.com).
 
 > For the whole-project map, see `../CLAUDE.md` at the repo root.
-> Visual system: `../_design/09-mesa-pixel/ART-STYLE.md` (Mesa, modern pixel; same style as the app).
-> Voice: `../_design/01-identidad.md` §10.
+> Visual system: `../Design/09-mesa-pixel/ART-STYLE.md` (Mesa, modern pixel; same style as the app).
+> Voice: `../Design/01-identidad.md` §10.
 
 ## What this is
 
@@ -24,7 +24,7 @@ node_modules/.bin/tsc --noEmit -p .   # type-check src/lib + src/scripts (the bu
 
 - **Astro 5.7**, **Tailwind 3.4** via `@astrojs/tailwind` with `applyBaseStyles: false` (base styles come from `src/styles/global.css`), **@astrojs/sitemap**.
 - No UI framework. Interactivity is three small TS modules in `src/scripts/`.
-- `_design/` docs target Tailwind v4 + shadcn/ui. This codebase is not migrated; don't mix.
+- `Design/` docs target Tailwind v4 + shadcn/ui. This codebase is not migrated; don't mix.
 
 ## Routing & i18n
 
@@ -43,7 +43,7 @@ Web/
 ├── public/                 ← favicon.svg (pixel card, Stone & brass), og-en.png / og-es.png, robots.txt
 └── src/
     ├── styles/
-    │   ├── mesa-tokens.css ← MIRROR of the mesa block in _design/03-tokens/tokens.css (copy, don't edit)
+    │   ├── mesa-tokens.css ← MIRROR of the mesa block in Design/03-tokens/tokens.css (copy, don't edit)
     │   └── global.css      ← primitives: notch, mat, buttons, chips, index card, card back, stamps,
     │                         level bars, pixel palette classes (pK, pB…), Archie; utilities load last
     ├── lib/
@@ -79,6 +79,6 @@ Web/
 
 ## Regenerating assets
 
-- **Tokens:** change `_design/03-tokens/tokens.json`, regenerate `tokens.css`, then copy its `BEGIN mesa … END mesa` block into `src/styles/mesa-tokens.css`.
+- **Tokens:** change `Design/03-tokens/tokens.json`, regenerate `tokens.css`, then copy its `BEGIN mesa … END mesa` block into `src/styles/mesa-tokens.css`.
 - **OG images:** build, `npm run preview`, then screenshot the hero at 1200 × 630 with Puppeteer, light scheme + `prefers-reduced-motion: reduce`, header / secondary button / hint hidden. Save as `public/og-en.png` and `public/og-es.png`.
 - **Favicon:** `logoGridN(32, 18, false, null, 0)` cropped to the card (no ray), colours resolved for Stone & brass (`back #B08A2E`, `lt`/`dk`/`q` mixed as in global.css), viewBox `1 1 20 24`.

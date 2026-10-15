@@ -1,6 +1,6 @@
 /* Mesa, modern pixel: the landing's primitives.
-   Spec: _design/09-mesa-pixel/ART-STYLE.md. Shapes, timings and pixel maps are ported
-   from _design/08-visual-divergence/engram-ui-kit.html. Colours come only from the
+   Spec: Design/09-mesa-pixel/ART-STYLE.md. Shapes, timings and pixel maps are ported
+   from Design/08-visual-divergence/engram-ui-kit.html. Colours come only from the
    --mesa-* tokens (mesa-tokens.css); the active table is the data-pal attribute on <html>. */
 
 @import "./mesa-tokens.css";

@@ -1,6 +1,6 @@
 /**
- * Mesa, modern pixel (_design/09-mesa-pixel/ART-STYLE.md). Colours are the --mesa-*
- * CSS variables from src/styles/mesa-tokens.css (a mirror of _design/03-tokens), so a
+ * Mesa, modern pixel (Design/09-mesa-pixel/ART-STYLE.md). Colours are the --mesa-*
+ * CSS variables from src/styles/mesa-tokens.css (a mirror of Design/03-tokens), so a
  * class like `text-mesa-ink2` follows whichever table is on <html data-pal>.
  */
 const mesa = [

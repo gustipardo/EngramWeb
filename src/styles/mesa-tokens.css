@@ -1,5 +1,5 @@
-/* Mirror of the mesa block in _design/03-tokens/tokens.css (generated from tokens.json).
-   Web is its own repo and cannot import _design/ at build time, so this file is copied
+/* Mirror of the mesa block in Design/03-tokens/tokens.css (generated from tokens.json).
+   Web is its own repo and cannot import Design/ at build time, so this file is copied
    by hand. Change tokens.json first, regenerate tokens.css, then copy the block here. */
 /* BEGIN mesa (generated from tokens.json) */
 [data-pal="stone"] {
