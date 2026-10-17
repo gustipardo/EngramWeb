@@ -32,7 +32,6 @@ Astro i18n: `defaultLocale: 'es'`, `prefixDefaultLocale: false` → Spanish at `
 
 - `src/pages/index.astro` and `src/pages/en/index.astro` are one-line wrappers around `components/LandingPage.astro` (the shared stack). Edit the components, not the pages.
 - Legal pages (`privacy`, `terms`, `delete-account`, each ES + EN) use `layouts/LegalLayout.astro`. Their long-form text lives inline in the page by design.
-- `src/pages/juegos.astro` is a standalone Spanish card-game guide at `/juegos/`, public without sign-in. It reuses `Head` and Mesa primitives, includes a Skull practice round and native sharing, and documents its Desconfío house rules. It has no app authentication or backend dependencies.
 - Copy: `src/i18n/en.json` and `es.json`, same key tree (`meta`, `nav`, `hero`, `demo`, `manifesto`, `session`, `decks`, `archie`, `details`, `pricing`, `faq`, `cta`, `footer`). The hero demo's cards are copy too (`demo.cards`). Spanish uses voseo. Keep both files key-for-key.
 
 ## File layout
