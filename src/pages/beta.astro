@@ -5,10 +5,14 @@
 import Head from '../components/Head.astro';
 import PixelLogo from '../components/PixelLogo.astro';
 import PxIcon from '../components/PxIcon.astro';
-import { SUPPORT_EMAIL } from '../lib/site';
+import { SITE_URL, SUPPORT_EMAIL } from '../lib/site';
 
 const APK_PATH = '/beta/engram.apk';
 const APK_SIZE = '127 MB';
+const TITLE = 'Beta para Android · Engram';
+const DESCRIPTION =
+  'Descargá la beta de Engram para Android: estudiá tus mazos hablando con un tutor.';
+const OG_IMAGE = `${SITE_URL}/og-es.png`;
 
 const steps = [
   {
@@ -29,11 +33,19 @@ const steps = [
 <!doctype html>
 <html lang="es" class="no-js" data-pal="stone" data-theme="gold" data-night="0">
   <head>
-    <Head
-      title="Beta para Android · Engram"
-      description="Descargá la beta de Engram para Android: estudiá tus mazos hablando con un tutor."
-    />
+    <Head title={TITLE} description={DESCRIPTION} />
     <meta name="robots" content="noindex, nofollow" />
+    <!-- Link previews (WhatsApp, Telegram...) read these, not the robots tag. -->
+    <meta property="og:title" content={TITLE} />
+    <meta property="og:description" content={DESCRIPTION} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${SITE_URL}/beta/`} />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:image" content={OG_IMAGE} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={OG_IMAGE} />
   </head>
 
   <body>
