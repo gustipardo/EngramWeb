@@ -8,6 +8,8 @@ export default defineConfig({
     // base styles come from src/styles/global.css (imported in Head.astro)
     tailwind({ applyBaseStyles: false }),
     sitemap({
+      // /beta is the testers' download page, not for search.
+      filter: (page) => !page.includes("/beta"),
       i18n: {
         defaultLocale: "es",
         locales: {

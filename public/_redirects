@@ -1,4 +1,4 @@
-# Beta APK for testers (sideload until the Play closed test exists).
+# Beta APK for testers (the /beta page links here; sideload until the Play closed test exists).
 # The file lives in Firebase Storage: App/functions/scripts/upload-beta-apk.js
 # prints the link; point this line at the new one after each upload.
-/beta https://firebasestorage.googleapis.com/v0/b/engram-3392a.firebasestorage.app/o/beta%2Fengram-prod-f2650e9.apk?alt=media&token=6a50d5af-7675-446d-a7ec-27e5c841b7ed 302
+/beta/engram.apk https://firebasestorage.googleapis.com/v0/b/engram-3392a.firebasestorage.app/o/beta%2Fengram-prod-f2650e9.apk?alt=media&token=6a50d5af-7675-446d-a7ec-27e5c841b7ed 302
