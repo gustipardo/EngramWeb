@@ -6,6 +6,8 @@ Guidance for working inside the Astro landing page (engramcards.com).
 > Visual system: `../Design/09-mesa-pixel/ART-STYLE.md` (Mesa, modern pixel; same style as the app).
 > Voice: `../Design/01-identidad.md` §10.
 
+> **⚠ Desde 2026-10-24, por un mes, engramcards.com no apunta a este proyecto.** El dominio sirve el proyecto de la UTN (Engram Desarrollo). Esta landing está en https://engramweb.gustavomaralvarez.workers.dev, y un push a `main` la despliega ahí. Para devolver el dominio: `../Academic/Desarrollo de Software/Engram/deploy/REVERTIR.md`.
+
 ## What this is
 
 Bilingual ES/EN landing for Engram (product name Flashcards Conversacionales / Conversational Flashcards). Astro 5 + Tailwind 3.4, static output. Deployed by Cloudflare Pages on every push to `main` of `github.com/gustipardo/EngramWeb`, so **a push is a deploy**.
