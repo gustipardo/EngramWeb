@@ -244,8 +244,8 @@
         "body": "The session keeps going with the screen off: on a walk, doing the dishes, at the gym. Never while driving."
       },
       {
-        "title": "Your audio stays off our servers",
-        "body": "Your voice goes from your phone straight to OpenAI's realtime model. We don't store or relay audio."
+        "title": "We don't keep your voice",
+        "body": "Each answer goes through our server to OpenAI, which transcribes it; our server does not keep it. The tutor's voice is an ElevenLabs recording made from the card's text."
       }
     ]
   },
@@ -302,7 +302,7 @@
       },
       {
         "question": "Where does my voice go?",
-        "answer": "From your phone straight to OpenAI's realtime model, which hears you and speaks the tutor's replies. The text of your answer goes to TypeSafe (Jev), which grades it. We never store your audio."
+        "answer": "When you finish answering, the recording of your answer goes through our server to OpenAI, which transcribes it. The text goes to TypeSafe (Jev), which grades it. Our server does not store your audio. The tutor's voice is not yours: it is clips ElevenLabs records from the text of each card."
       },
       {
         "question": "Does it work offline?",

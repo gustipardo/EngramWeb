@@ -244,8 +244,8 @@
         "body": "La sesión sigue con la pantalla apagada: caminando, lavando los platos, en el gimnasio. Nunca manejando."
       },
       {
-        "title": "Tu audio no pasa por nuestros servidores",
-        "body": "Tu voz va del teléfono directo al modelo de voz en tiempo real de OpenAI. No guardamos ni retransmitimos audio."
+        "title": "No guardamos tu voz",
+        "body": "Cada respuesta pasa por nuestro servidor a OpenAI, que la transcribe; nuestro servidor no la guarda. La voz del tutor es una grabación de ElevenLabs hecha a partir del texto de la tarjeta."
       }
     ]
   },
@@ -302,7 +302,7 @@
       },
       {
         "question": "¿Adónde va mi voz?",
-        "answer": "Del teléfono directo al modelo de voz en tiempo real de OpenAI, que te escucha y habla con la voz del tutor. El texto de tu respuesta va a TypeSafe (Jev), que la evalúa. Nunca guardamos tu audio."
+        "answer": "Cuando terminás de responder, la grabación de tu respuesta pasa por nuestro servidor a OpenAI, que la transcribe. El texto va a TypeSafe (Jev), que la evalúa. Nuestro servidor no guarda tu audio. La voz del tutor no es la tuya: son clips que ElevenLabs graba a partir del texto de cada tarjeta."
       },
       {
         "question": "¿Funciona sin internet?",
