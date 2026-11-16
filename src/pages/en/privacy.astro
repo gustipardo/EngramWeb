@@ -6,19 +6,21 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   locale="en"
   title="Privacy Policy"
   description="How Engram (Conversational Flashcards) collects, uses, and shares your information."
-  effective="October 8, 2026"
+  effective="November 16, 2026"
   selfPath="/en/privacy"
   altPath="/privacy"
 >
   <p class="lead">
-    Engram is a voice study app that turns your AnkiDroid decks into spoken
-    practice with an AI tutor. This policy explains what information the app
+    Engram is a voice study app: a tutor asks you your flashcards out loud and
+    an AI grades your spoken answers. The decks can be ones you make in Engram,
+    ready-made decks included in the app or, if you use it, your AnkiDroid
+    collection. This policy explains what information the app
     handles, why, and who it is shared with. We try to collect as little as the
     app needs to work.
   </p>
 
   <div class="summary">
-    <p><strong>The short version.</strong> We use Google Sign-In to create your account, and we store your plan and how many voice minutes you used this month. During a study session your microphone audio and the text of the cards being reviewed are sent to OpenAI so the tutor can hear you and quiz you, and your transcribed answer is sent to TypeSafe (Jev) to grade it. If you build a deck with AI, the request and files you choose are sent to OpenAI. We never store your audio. Payments are handled entirely by Google Play. We do not sell your data. You can delete your account in the app.</p>
+    <p><strong>The short version.</strong> We use Google Sign-In to create your account, and we store your plan and how many voice minutes you used this month. During a study session the text of each card is sent to ElevenLabs to record the tutor's voice reading it, the recording of each spoken answer goes through our server to OpenAI to be transcribed, and the transcript, together with the card, is sent to TypeSafe (Jev) to grade it. If you build a deck with AI, the request and files you choose are sent to OpenAI. We do not store your voice. Payments are handled entirely by Google Play. We do not sell your data. You can delete your account in the app.</p>
   </div>
 
   <h2>1. Who we are</h2>
@@ -42,28 +44,54 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 
   <h3>Voice and audio</h3>
   <p>
-    A study session is a live conversation. While a session is active, the app
-    captures your microphone audio and streams it in real time to
-    <strong>OpenAI</strong> (Realtime API), which transcribes your speech and
-    generates the tutor's spoken replies. Microphone
-    capture happens <strong>only during an active session</strong> and stops when
-    the session ends. <strong>We do not record or store your audio on our
-    servers</strong>, and there is no Engram server in the audio path. The audio
-    is processed by OpenAI under its own terms (see "Third-party services").
+    The tutor speaks with recorded clips, not in a live conversation (see
+    "Recorded voice clips"). While a session is active, the app listens to your
+    microphone after the tutor finishes speaking. When it detects that you have
+    finished answering, it sends that recording of your answer through our
+    server (Google Cloud Functions) to <strong>OpenAI</strong>
+    (gpt-4o-mini-transcribe), which returns the text of what you said.
+    Microphone capture happens <strong>only during an active session</strong>
+    and stops when the session ends. <strong>Our server passes the audio on
+    without saving it, and we do not record or store your voice.</strong> OpenAI
+    processes the audio under its own terms (see "Third-party services").
   </p>
 
-  <h3>Flashcard content from AnkiDroid</h3>
+  <h3>Flashcard content</h3>
   <p>
-    With your explicit, on-device permission, Engram reads your decks from
-    AnkiDroid through AnkiDroid's official API. This includes the
-    front and back text of due cards and their scheduling information. The app
-    reads this locally on your device to run the session, and the text of the
-    cards under review is sent to OpenAI during the session so the tutor can ask
-    them, and to TypeSafe (Jev) together with the transcript of your answer so
-    it can be graded. When you answer, the app writes the review result
-    (the grade) back to your local AnkiDroid collection. We do not copy your deck
-    library to our servers, and we do not sync to AnkiWeb (that stays a separate,
-    user-initiated action inside AnkiDroid).
+    You can study decks you make in Engram (by hand or with AI), ready-made
+    decks included in the app and, with your explicit on-device permission,
+    your AnkiDroid decks. AnkiDroid is optional. Engram reads AnkiDroid decks
+    through AnkiDroid's official API: the front and back text of due cards and
+    their scheduling information. Decks you make or copy into Engram, and their
+    review schedule, are saved only on your device.
+  </p>
+  <p>
+    To study a card, its text is sent through our server to:
+  </p>
+  <ul>
+    <li><strong>ElevenLabs</strong>, to record the tutor reading the question and the answer, and the hint if you ask for one. This happens the first time the card is studied, a few cards ahead during a session, or when you download a deck's audio.</li>
+    <li><strong>TypeSafe (Jev)</strong>, together with the transcript of your answer, to grade it or to recognize a voice command (repeat, hint, next card, end).</li>
+    <li><strong>OpenAI</strong>, only when you ask for a hint, to write it. We ask OpenAI not to store these requests.</li>
+  </ul>
+  <p>
+    When you answer, the app saves the grade on your device: in your local
+    AnkiDroid collection for AnkiDroid decks, and in Engram for the rest. We do
+    not copy your deck library to our servers, and we do not sync to AnkiWeb
+    (that stays a separate, user-initiated action inside AnkiDroid).
+  </p>
+
+  <h3>Recorded voice clips</h3>
+  <p>
+    Each clip is an audio file (MP3) made by ElevenLabs from the text of a card,
+    a hint or one of the tutor's prewritten phrases. It contains the tutor's
+    synthetic voice, never yours. On our side, clips are kept in Google Cloud
+    Storage under a name computed from the text and the voice settings, with no
+    link to your account: if someone else studies a card with exactly the same
+    text, they receive the same clip and it is not recorded again. We have not
+    set an expiry for these clips: today they are kept with no deletion date,
+    and deleting your account does not remove them, since nothing ties them to
+    it. On your phone, the app keeps the clips it has played or downloaded in
+    its own storage until you uninstall the app or clear its data.
   </p>
 
   <h3>Decks you create with AI</h3>
@@ -80,9 +108,10 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   <p>
     We store a small record tied to your account with your plan, your
     subscription status, how many voice minutes and AI decks you used each
-    month, how many sessions you started, and the number of AI tokens each
-    feature used per day. These are counts only: no audio, transcripts or card
-    text. This is held in Google Cloud Firestore and is what enforces your
+    month, how many sessions you started (with the start time and the seconds
+    charged for each), and how much each AI feature used per day (AI tokens and
+    characters of text recorded as voice). These are counts only: no audio,
+    transcripts or card text. This is held in Google Cloud Firestore and is what enforces your
     plan's monthly allowance. When you subscribe, Google Play sends us a
     purchase token so we can verify and unlock your subscription.
   </p>
@@ -113,10 +142,16 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
     (the error, the app's state at that moment, device model and OS version)
     linked to your account identifier.
   </p>
+  <p>
+    The app also keeps a diagnostic log on your phone, which includes the text
+    of the cards you study and the transcripts of your answers, so a problem in
+    a session can be traced. It stays on the device and is not sent to us;
+    files older than 14 days are deleted.
+  </p>
 
   <h2>3. How we use your information</h2>
   <ul>
-    <li>To provide the core feature: a real-time voice tutor over your AnkiDroid decks.</li>
+    <li>To provide the core feature: a voice tutor over your decks.</li>
     <li>To create your account, sign you in, and keep your access in sync across devices.</li>
     <li>To apply your plan's monthly voice minutes and AI decks, and to verify and manage subscriptions.</li>
     <li>To understand usage, diagnose problems, and improve the app.</li>
@@ -130,9 +165,10 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
     data only as needed to provide its part of the service:
   </p>
   <ul>
-    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions, Crashlytics):</strong> account sign-in, plan and usage records, backend logic, and crash reports.</li>
-    <li><strong>OpenAI:</strong> real-time processing of your session audio and the card text under review to power the AI tutor, and writing decks you create with AI.</li>
-    <li><strong>TypeSafe (Jev):</strong> grading your transcribed answers against the card, and choosing settings for decks you create with AI.</li>
+    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions, Cloud Storage, Crashlytics):</strong> account sign-in, plan and usage records, backend logic, storage of recorded voice clips, and crash reports.</li>
+    <li><strong>ElevenLabs:</strong> recording the tutor's voice from the text of cards, hints and the tutor's prewritten phrases.</li>
+    <li><strong>OpenAI:</strong> transcribing your spoken answers, writing hints when you ask for one, and writing decks you create with AI.</li>
+    <li><strong>TypeSafe (Jev):</strong> grading your transcribed answers against the card, recognizing voice commands, and choosing settings for decks you create with AI.</li>
     <li><strong>Google Play Billing:</strong> processes all subscription payments. Engram never receives or stores your payment-card details.</li>
     <li><strong>PostHog:</strong> product usage analytics.</li>
   </ul>
@@ -144,8 +180,10 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 
   <h2>5. Data retention</h2>
   <p>
-    Session audio is not retained by us; it is processed transiently and
-    discarded. Your account record, plan and usage counts are kept while your
+    We do not keep your voice: each recorded answer is passed to OpenAI for
+    transcription and discarded by our server. Recorded voice clips are kept as
+    described in "Recorded voice clips". ElevenLabs, OpenAI and TypeSafe keep
+    what they receive according to their own terms. Your account record, plan and usage counts are kept while your
     account exists so the service can function. Feedback is kept until it has
     been handled. Analytics events and crash reports are retained for a limited
     period. When you delete your account, we delete your account record, usage
@@ -163,7 +201,7 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
 
   <h2>7. International transfers</h2>
   <p>
-    Our providers (Google, OpenAI, TypeSafe and PostHog) operate globally, so your information may
+    Our providers (Google, ElevenLabs, OpenAI, TypeSafe and PostHog) operate globally, so your information may
     be processed on servers located outside your country of residence, including
     in the United States and the European Union. Where required, these transfers
     rely on the safeguards offered by those providers.
@@ -188,8 +226,8 @@ import LegalLayout from '../../layouts/LegalLayout.astro';
   <h2>9. Permissions we request</h2>
   <ul>
     <li><strong>Microphone:</strong> to hear your spoken answers during a study session. Used only while a session is active.</li>
-    <li><strong>AnkiDroid access:</strong> a permission granted to AnkiDroid that lets Engram read your decks and write grades back. You grant it at runtime and can revoke it.</li>
-    <li><strong>Notifications:</strong> to show the call-style session notification while a session runs in the background.</li>
+    <li><strong>AnkiDroid access (optional):</strong> a permission granted to AnkiDroid that lets Engram read your decks and write grades back. Only needed to study your AnkiDroid decks. You grant it at runtime and can revoke it.</li>
+    <li><strong>Notifications:</strong> to show the call-style session notification while a session runs in the background, to tell you when a deck you asked the AI to write is ready, and for study reminders if you turn them on.</li>
   </ul>
 
   <h2>10. Children's privacy</h2>

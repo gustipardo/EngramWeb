@@ -6,19 +6,21 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   locale="es"
   title="Política de Privacidad"
   description="Cómo Engram (Flashcards Conversacionales) recopila, usa y comparte tu información."
-  effective="8 de octubre de 2026"
+  effective="16 de noviembre de 2026"
   selfPath="/privacy"
   altPath="/en/privacy"
 >
   <p class="lead">
-    Engram es una app de estudio por voz que convierte tus mazos de AnkiDroid en
-    práctica hablada con un tutor de IA. Esta política explica qué información
+    Engram es una app de estudio por voz: un tutor te pregunta tus tarjetas en
+    voz alta y una IA califica tus respuestas habladas. Los mazos pueden ser
+    los que creás en Engram, los mazos listos que trae la app o, si la usás, tu
+    colección de AnkiDroid. Esta política explica qué información
     maneja la app, para qué, y con quién se comparte. Procuramos recopilar lo
     mínimo que la app necesita para funcionar.
   </p>
 
   <div class="summary">
-    <p><strong>En resumen.</strong> Usamos el inicio de sesión de Google para crear tu cuenta y guardamos tu plan y cuántos minutos de voz usaste en el mes. Durante una sesión de estudio, el audio de tu micrófono y el texto de las tarjetas que se repasan se envían a OpenAI para que el tutor te escuche y te tome la lección, y tu respuesta transcripta se envía a TypeSafe (Jev) para calificarla. Si creás un mazo con IA, el pedido y los archivos que elijas se envían a OpenAI. Nunca guardamos tu audio. Los pagos los gestiona por completo Google Play. No vendemos tus datos. Podés eliminar tu cuenta desde la app.</p>
+    <p><strong>En resumen.</strong> Usamos el inicio de sesión de Google para crear tu cuenta y guardamos tu plan y cuántos minutos de voz usaste en el mes. Durante una sesión de estudio, el texto de cada tarjeta se envía a ElevenLabs para grabar la voz del tutor que la lee, la grabación de cada respuesta hablada pasa por nuestro servidor hacia OpenAI para transcribirla, y la transcripción, junto con la tarjeta, se envía a TypeSafe (Jev) para calificarla. Si creás un mazo con IA, el pedido y los archivos que elijas se envían a OpenAI. No guardamos tu voz. Los pagos los gestiona por completo Google Play. No vendemos tus datos. Podés eliminar tu cuenta desde la app.</p>
   </div>
 
   <h2>1. Quiénes somos</h2>
@@ -43,30 +45,57 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h3>Voz y audio</h3>
   <p>
-    Una sesión de estudio es una conversación en vivo. Mientras una sesión está
-    activa, la app captura el audio de tu micrófono y lo transmite en tiempo real
-    a <strong>OpenAI</strong> (Realtime API), que transcribe lo que decís y
-    genera las respuestas habladas del tutor. La captura del
-    micrófono ocurre <strong>solo durante una sesión activa</strong> y se detiene
-    cuando la sesión termina. <strong>No grabamos ni almacenamos tu audio en
-    nuestros servidores</strong>, y no hay ningún servidor de Engram en el camino
-    del audio. El audio lo procesa OpenAI bajo sus propios términos (ver
-    "Servicios de terceros").
+    El tutor habla con clips grabados, no en una conversación en vivo (ver
+    "Clips de voz grabados"). Mientras una sesión está activa, la app escucha tu
+    micrófono cuando el tutor termina de hablar. Cuando detecta que terminaste
+    de responder, envía esa grabación de tu respuesta a través de nuestro
+    servidor (Google Cloud Functions) a <strong>OpenAI</strong>
+    (gpt-4o-mini-transcribe), que devuelve el texto de lo que dijiste. La
+    captura del micrófono ocurre <strong>solo durante una sesión activa</strong>
+    y se detiene cuando la sesión termina. <strong>Nuestro servidor reenvía el
+    audio sin guardarlo, y no grabamos ni almacenamos tu voz.</strong> El audio
+    lo procesa OpenAI bajo sus propios términos (ver "Servicios de terceros").
   </p>
 
-  <h3>Contenido de las tarjetas de AnkiDroid</h3>
+  <h3>Contenido de las tarjetas</h3>
   <p>
-    Con tu permiso explícito en el dispositivo, Engram lee tus mazos de AnkiDroid
-    a través de la API oficial de AnkiDroid. Esto incluye el
-    texto del frente y el dorso de las tarjetas pendientes y su información de
-    programación. La app lee esto localmente en tu dispositivo para llevar
-    adelante la sesión, y el texto de las tarjetas que se repasan se envía a
-    OpenAI durante la sesión para que el tutor pueda preguntarlas, y a TypeSafe
-    (Jev) junto con la transcripción de tu respuesta para calificarla.
-    Cuando respondés, la app escribe el resultado del repaso (la calificación) de
-    vuelta en tu colección local de AnkiDroid. No copiamos tu biblioteca de mazos
-    a nuestros servidores ni sincronizamos con AnkiWeb (eso sigue siendo una
-    acción aparte que iniciás vos dentro de AnkiDroid).
+    Podés estudiar mazos que creás en Engram (a mano o con IA), mazos listos que
+    trae la app y, con tu permiso explícito en el dispositivo, tus mazos de
+    AnkiDroid. AnkiDroid es opcional. Engram lee los mazos de AnkiDroid a través
+    de la API oficial de AnkiDroid: el texto del frente y el dorso de las
+    tarjetas pendientes y su información de programación. Los mazos que creás o
+    copiás a Engram, y su programación de repasos, se guardan solo en tu
+    dispositivo.
+  </p>
+  <p>
+    Para estudiar una tarjeta, su texto se envía a través de nuestro servidor a:
+  </p>
+  <ul>
+    <li><strong>ElevenLabs</strong>, para grabar al tutor leyendo la pregunta y la respuesta, y la pista si pedís una. Esto ocurre la primera vez que se estudia la tarjeta, unas tarjetas antes durante una sesión, o cuando descargás el audio de un mazo.</li>
+    <li><strong>TypeSafe (Jev)</strong>, junto con la transcripción de tu respuesta, para calificarla o reconocer un comando de voz (repetir, pista, siguiente tarjeta, terminar).</li>
+    <li><strong>OpenAI</strong>, solo cuando pedís una pista, para escribirla. Le pedimos a OpenAI que no guarde estos pedidos.</li>
+  </ul>
+  <p>
+    Cuando respondés, la app guarda la calificación en tu dispositivo: en tu
+    colección local de AnkiDroid para los mazos de AnkiDroid, y en Engram para
+    el resto. No copiamos tu biblioteca de mazos a nuestros servidores ni
+    sincronizamos con AnkiWeb (eso sigue siendo una acción aparte que iniciás
+    vos dentro de AnkiDroid).
+  </p>
+
+  <h3>Clips de voz grabados</h3>
+  <p>
+    Cada clip es un archivo de audio (MP3) que ElevenLabs genera a partir del
+    texto de una tarjeta, de una pista o de una de las frases ya escritas del
+    tutor. Contiene la voz sintética del tutor, nunca la tuya. De nuestro lado,
+    los clips se guardan en Google Cloud Storage con un nombre calculado a
+    partir del texto y de la configuración de la voz, sin vínculo con tu cuenta:
+    si otra persona estudia una tarjeta con exactamente el mismo texto, recibe
+    el mismo clip y no se graba de nuevo. No fijamos un plazo de vencimiento
+    para estos clips: hoy se conservan sin fecha de borrado, y eliminar tu
+    cuenta no los borra, porque nada los asocia a ella. En tu teléfono, la app
+    guarda los clips que reprodujo o descargó en su propio almacenamiento hasta
+    que la desinstales o borres sus datos.
   </p>
 
   <h3>Mazos que creás con IA</h3>
@@ -84,8 +113,9 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   <p>
     Guardamos un registro pequeño asociado a tu cuenta con tu plan, el estado de
     tu suscripción, cuántos minutos de voz y mazos con IA usaste cada mes,
-    cuántas sesiones iniciaste y la cantidad de tokens de IA que usó cada
-    función por día. Son solo cantidades: nada de audio, transcripciones ni
+    cuántas sesiones iniciaste (con la hora de inicio y los segundos cobrados de
+    cada una) y cuánto usó cada función de IA por día (tokens de IA y
+    caracteres de texto grabados como voz). Son solo cantidades: nada de audio, transcripciones ni
     texto de tarjetas. Se almacena en Google Cloud Firestore y es lo que aplica
     el límite mensual de tu plan. Cuando te suscribís, Google Play nos envía un
     comprobante de compra para que podamos verificar y habilitar tu suscripción.
@@ -120,10 +150,16 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     app en ese momento, el modelo del dispositivo y la versión del sistema)
     asociado a tu identificador de cuenta.
   </p>
+  <p>
+    La app también guarda un registro de diagnóstico en tu teléfono, que
+    incluye el texto de las tarjetas que estudiás y las transcripciones de tus
+    respuestas, para poder rastrear un problema en una sesión. Queda en el
+    dispositivo y no nos llega; los archivos de más de 14 días se borran.
+  </p>
 
   <h2>3. Cómo usamos tu información</h2>
   <ul>
-    <li>Para brindar la función principal: un tutor de voz en tiempo real sobre tus mazos de AnkiDroid.</li>
+    <li>Para brindar la función principal: un tutor de voz sobre tus mazos.</li>
     <li>Para crear tu cuenta, iniciar tu sesión y mantener tu acceso sincronizado entre dispositivos.</li>
     <li>Para aplicar los minutos de voz y los mazos con IA mensuales de tu plan, y para verificar y administrar suscripciones.</li>
     <li>Para entender el uso, diagnosticar problemas y mejorar la app.</li>
@@ -138,9 +174,10 @@ import LegalLayout from '../layouts/LegalLayout.astro';
     servicio:
   </p>
   <ul>
-    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions, Crashlytics):</strong> inicio de sesión, registros de plan y uso, lógica del backend e informes de fallos.</li>
-    <li><strong>OpenAI:</strong> procesamiento en tiempo real del audio de tu sesión y del texto de las tarjetas en repaso para impulsar el tutor de IA, y escritura de los mazos que creás con IA.</li>
-    <li><strong>TypeSafe (Jev):</strong> calificación de tus respuestas transcriptas según la tarjeta, y elección de la configuración de los mazos que creás con IA.</li>
+    <li><strong>Google (Firebase Authentication, Cloud Firestore, Cloud Functions, Cloud Storage, Crashlytics):</strong> inicio de sesión, registros de plan y uso, lógica del backend, almacenamiento de los clips de voz grabados e informes de fallos.</li>
+    <li><strong>ElevenLabs:</strong> grabación de la voz del tutor a partir del texto de las tarjetas, de las pistas y de las frases ya escritas del tutor.</li>
+    <li><strong>OpenAI:</strong> transcripción de tus respuestas habladas, escritura de pistas cuando pedís una, y escritura de los mazos que creás con IA.</li>
+    <li><strong>TypeSafe (Jev):</strong> calificación de tus respuestas transcriptas según la tarjeta, reconocimiento de comandos de voz, y elección de la configuración de los mazos que creás con IA.</li>
     <li><strong>Google Play Billing:</strong> procesa todos los pagos de suscripción. Engram nunca recibe ni almacena los datos de tu tarjeta.</li>
     <li><strong>PostHog:</strong> analítica de uso del producto.</li>
   </ul>
@@ -152,8 +189,10 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h2>5. Conservación de los datos</h2>
   <p>
-    No conservamos el audio de las sesiones; se procesa de forma transitoria y se
-    descarta. El registro de tu cuenta y los datos de suscripción se mantienen
+    No conservamos tu voz: cada respuesta grabada se reenvía a OpenAI para
+    transcribirla y nuestro servidor la descarta. Los clips de voz grabados se
+    conservan como se describe en "Clips de voz grabados". ElevenLabs, OpenAI y
+    TypeSafe conservan lo que reciben según sus propios términos. El registro de tu cuenta y los datos de suscripción se mantienen
     mientras exista tu cuenta para que el servicio funcione, junto con las
     cantidades de uso. Los comentarios se conservan hasta que se resuelven. Los
     eventos de analítica y los informes de fallos se conservan por un período
@@ -174,7 +213,7 @@ import LegalLayout from '../layouts/LegalLayout.astro';
 
   <h2>7. Transferencias internacionales</h2>
   <p>
-    Nuestros proveedores (Google, OpenAI, TypeSafe y PostHog) operan a nivel global, por lo que tu
+    Nuestros proveedores (Google, ElevenLabs, OpenAI, TypeSafe y PostHog) operan a nivel global, por lo que tu
     información puede procesarse en servidores ubicados fuera de tu país de
     residencia, incluidos Estados Unidos y la Unión Europea. Cuando corresponde,
     estas transferencias se apoyan en las garantías que ofrecen esos proveedores.
@@ -199,8 +238,8 @@ import LegalLayout from '../layouts/LegalLayout.astro';
   <h2>9. Permisos que solicitamos</h2>
   <ul>
     <li><strong>Micrófono:</strong> para escuchar tus respuestas habladas durante una sesión de estudio. Se usa solo mientras la sesión está activa.</li>
-    <li><strong>Acceso a AnkiDroid:</strong> un permiso otorgado a AnkiDroid que le permite a Engram leer tus mazos y escribir las calificaciones. Lo concedés en tiempo de ejecución y podés revocarlo.</li>
-    <li><strong>Notificaciones:</strong> para mostrar la notificación de sesión tipo llamada mientras una sesión corre en segundo plano.</li>
+    <li><strong>Acceso a AnkiDroid (opcional):</strong> un permiso otorgado a AnkiDroid que le permite a Engram leer tus mazos y escribir las calificaciones. Solo hace falta para estudiar tus mazos de AnkiDroid. Lo concedés en tiempo de ejecución y podés revocarlo.</li>
+    <li><strong>Notificaciones:</strong> para mostrar la notificación de sesión tipo llamada mientras una sesión corre en segundo plano, avisarte cuando está listo un mazo que le pediste a la IA, y para los recordatorios de estudio si los activás.</li>
   </ul>
 
   <h2>10. Privacidad de menores</h2>
